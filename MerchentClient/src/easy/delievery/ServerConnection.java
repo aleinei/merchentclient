@@ -10,7 +10,10 @@ import java.awt.print.PrinterJob;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.net.Socket;
+import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.print.PrintService;
@@ -59,9 +62,10 @@ public class ServerConnection {
     public void Connect() {
         if(!isConnected) {
             try {
-                //serverSocket = new Socket("196.218.98.134", 2550);
-                serverSocket = new Socket("41.39.215.97", 2550);
+                serverSocket = new Socket("192.168.1.2", 2550);
+                //serverSocket = new Socket("41.39.215.97", 2550);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(serverSocket.getInputStream(), "UTF-8"));
+                SendConnection();
                 callerWindow.SetClientStatus("Waiting for message");
                 String line;
                 while((line = reader.readLine()) != null) {
@@ -71,8 +75,19 @@ public class ServerConnection {
             } catch (IOException ex) {
                 callerWindow.LogMessage(ex.toString());
                 callerWindow.SetClientStatus("Disconnected");
-            } 
+            }
         }
+    }
+    
+    public void Reload() {
+        isConnected = false;
+        try {
+            serverSocket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        serverSocket = null;
+        Connect();
     }
     
     public void HandleMessage(String message) {
@@ -84,9 +99,14 @@ public class ServerConnection {
                 boolean isTakeAway = msg.getBoolean("takeaway");
                 String user = msg.getString("user");
               //  printOrder(items, "بار");
-                SQL sql = new SQL("vfgreenery");
-                if(sql.InsertInvoice(Id, items, isTakeAway, user)) {
+                SQL sql = new SQL();
+                int invoiceId = sql.InsertInvoice(Id, items, isTakeAway, user);
+                if(invoiceId != -1) {
                     callerWindow.LogMessage("Recieved an order to print");
+                    JSONObject obj = new JSONObject();
+                    obj.put("Msg", "d_order_done");
+                    obj.put("id", invoiceId);
+                    SendMessage(obj.toString());
                 } else {
                     callerWindow.LogMessage("Order failed to insert");
                 }
@@ -97,7 +117,7 @@ public class ServerConnection {
                         String email = msg.getString("email");
                         String address1 = msg.getString("address1");
                         String address2 = msg.getString("address2");
-                        SQL SQL = new SQL("vfgreenery");
+                        SQL SQL = new SQL();
                         JSONObject user = SQL.createNewCustomer(username, password, phone, email, address1,address2);
                         if(user != null) {
                             callerWindow.LogMessage("New user registered (" + username + ")");
@@ -206,6 +226,32 @@ public class ServerConnection {
             callerWindow.LogMessage(ex.toString());
         } catch (JSONException ex) {
          callerWindow.LogMessage(ex.toString());
+        }
+    }
+
+    public void SendConnection() {
+        try {
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(serverSocket.getOutputStream(), StandardCharsets.UTF_8), true);
+            JSONObject connectMessage = new JSONObject();
+            connectMessage.put("Msg", "reg_db");
+            connectMessage.put("db", EasyDelievery.CURRENT_DB);
+            connectMessage.put("type", "storeClient");
+            out.println(connectMessage.toString());
+        } catch (JSONException ex) {
+            Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+            callerWindow.LogMessage(ex.toString());
+            callerWindow.SetClientStatus("Unable to send the connect message");
+        } catch (IOException ex) {
+            Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void SendMessage(String message) {
+        try {
+            PrintWriter output = new PrintWriter( new OutputStreamWriter(serverSocket.getOutputStream(), StandardCharsets.UTF_8), true);
+            output.println(message);
+        } catch (IOException ex) {
+            Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

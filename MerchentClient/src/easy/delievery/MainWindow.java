@@ -5,6 +5,9 @@
  */
 package easy.delievery;
 
+import com.sun.glass.events.KeyEvent;
+import javafx.scene.input.KeyCode;
+
 /**
  *
  * @author Server
@@ -14,12 +17,34 @@ public class MainWindow extends javax.swing.JFrame {
     /**
      * Creates new form MainWindow
      */
+    ServerConnection connection;
     public MainWindow() {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
     }
-
+    
+    public void Start() {
+        connection = new ServerConnection(this);
+        Runnable r = () -> {
+            connection.Connect();
+        };
+        Thread t = new Thread(r);
+        t.start();
+        Runnable r2 = new Runnable() {
+            @Override
+            public void run() {
+                LocalServer server = new LocalServer(MainWindow.this);
+            }
+            
+        };
+        
+        Thread t2= new Thread(r2);
+        t2.start();
+    }
+    public void Reload() {
+        connection.SendConnection();
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,6 +65,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Easy Delievery - Client");
+        addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                onKeyPressed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         jLabel1.setText("Client Status: ");
@@ -128,6 +158,12 @@ public class MainWindow extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void onKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_onKeyPressed
+        if(evt.getKeyCode() == KeyEvent.VK_E && evt.isControlDown()) {
+            ApplicationInit app = new ApplicationInit(true);
+        }
+    }//GEN-LAST:event_onKeyPressed
 
 
     public void SetClientStatus(String status) {

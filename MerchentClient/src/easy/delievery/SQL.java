@@ -26,9 +26,9 @@ public class SQL {
     
     public String DBName;
     
-    public SQL(String dbname)
+    public SQL()
     {
-        this.DBName = dbname;
+        this.DBName = EasyDelievery.CURRENT_DB;
     }
     public Connection Connect() throws SQLException {
         Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName="+ DBName +";user=sa;password=AbdulRahman02^");
@@ -124,7 +124,7 @@ public class SQL {
         }
        return false;
     }
-    public boolean InsertInvoice(int cstId, JSONArray items, boolean isTakeAway, String user) {
+    public int InsertInvoice(int cstId, JSONArray items, boolean isTakeAway, String user) {
         try {
                     Connection con = this.Connect();
                     int invoiceId = getNextId("Invoice_Order");
@@ -169,7 +169,7 @@ public class SQL {
                                     int rows2 = stmt2.executeUpdate(query);
                                     if(rows2 <= 0) {
                                         System.out.println("rows2 was not done");
-                                        return false;
+                                        return -1;
                                     }
                                     boolean hasExtra = item.getBoolean("hasextra");
                                     boolean hasadd = item.getBoolean("hasadd");
@@ -249,10 +249,10 @@ public class SQL {
                                 }
                             }
                             PrintOrder.PrintWorkOrder(items, user, invoiceId, nextCO, this);
-                            return true;
+                            return invoiceId;
                         } else {
                             System.out.println("rows was not done");
-                            return false;
+                            return -1;
                         }
                     } catch (JSONException ex) {
                         Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
@@ -260,7 +260,7 @@ public class SQL {
         } catch (SQLException ex) {
             Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
         }
-       return false;
+       return -1;
     }
         private int getNextId(String tableName) {
         try {
