@@ -62,7 +62,7 @@ public class ServerConnection {
     public void Connect() {
         if(!isConnected) {
             try {
-                serverSocket = new Socket("192.168.1.2", 2550);
+                serverSocket = new Socket("192.168.1.5", 2550);
                 //serverSocket = new Socket("41.39.215.97", 2550);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(serverSocket.getInputStream(), "UTF-8"));
                 SendConnection();
@@ -102,10 +102,16 @@ public class ServerConnection {
                 SQL sql = new SQL();
                 int invoiceId = sql.InsertInvoice(Id, items, isTakeAway, user);
                 if(invoiceId != -1) {
+                    double value = 0;
+                    for(int i = 0; i < items.length(); i++) {
+                        JSONObject item = items.getJSONObject(i);
+                        value += item.getDouble("itemPrice");
+                    }
                     callerWindow.LogMessage("Recieved an order to print");
                     JSONObject obj = new JSONObject();
                     obj.put("Msg", "d_order_done");
                     obj.put("id", invoiceId);
+                    obj.put("value", value);
                     SendMessage(obj.toString());
                 } else {
                     callerWindow.LogMessage("Order failed to insert");
