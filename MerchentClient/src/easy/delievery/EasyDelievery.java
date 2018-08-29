@@ -23,6 +23,9 @@ public class EasyDelievery {
     public static MainWindow window;
     public static void main(String[] args) {
         File directory = new File(ESI_FILES_DIRECTORY);
+        if(!directory.exists()) {
+            directory.mkdirs();
+        }
         File dbFile = new File(DB_FILE_NAME);
         if(dbFile.exists()) {
             try {

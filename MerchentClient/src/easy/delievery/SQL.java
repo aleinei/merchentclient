@@ -38,21 +38,23 @@ public class SQL {
             return null;
         }
     }
-        public JSONObject createNewCustomer(String username, String password, String phone, String email, String address1, String address2) {
+        public JSONObject createNewCustomer(MainWindow window, String username, String password, String phone, String email, String address1, String address2, String floor, String apt, double lat, double longt) {
         JSONObject user = new JSONObject();
         try {
             Connection con = this.Connect();
             if(con != null) {
                 int Id = getNextId("Customers");
+                String completeAddress = "Building number " + address2 + " Floor Number " + floor + ", Apt Number " + apt + " , " + address1; 
                 String values = "'" + Id + "',";
                 values += "'1',";
                 values += "'" + username + "',";
                 values += "'" + password + "',";
                 values += "'" + phone + "',";
                 values += "'" + email + "',";
-                values += "'" + address1 + "',";
-                values += "'" + address2 + "'";
-                String query = "INSERT INTO Customers (Id, Type, Name, Password, Telephone, [E-mail], Address1, Address2) VALUES (" + values + ")";
+                values += "'" + completeAddress + "',";
+                values += "" + lat + ",";
+                values += "" + longt + "";
+                String query = "INSERT INTO Customers (Id, Type, Name, Password, Telephone, [E-mail], Address1, Latitude, Longitude) VALUES (" + values + ")";
                 try(Statement stmt = con.createStatement()) {
                     int rowsaffected = stmt.executeUpdate(query);
                     if(rowsaffected != 0) {
@@ -62,11 +64,11 @@ public class SQL {
                     }
                     return user;
                 } catch (JSONException ex) {
-                    Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+                    window.LogMessage(ex.getMessage());
                 } 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+            window.LogMessage(ex.getMessage());
         }
             
         return null;

@@ -100,7 +100,7 @@ public class PrintOrder {
                     Logger.getLogger(PrintOrder.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            PrintOrderToWork(items2, user, invoiceID,  Sources.get(i), CO, "XP-80C");
+            PrintOrderToWork(items2, user, invoiceID,  Sources.get(i), CO, sql.GetPrinterNameFromSource(Sources.get(i)));
         }
     }
     

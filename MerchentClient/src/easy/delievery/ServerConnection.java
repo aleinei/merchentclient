@@ -62,7 +62,7 @@ public class ServerConnection {
     public void Connect() {
         if(!isConnected) {
             try {
-                serverSocket = new Socket("192.168.1.5", 2550);
+                serverSocket = new Socket("196.218.98.134", 2550);
                 //serverSocket = new Socket("41.39.215.97", 2550);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(serverSocket.getInputStream(), "UTF-8"));
                 SendConnection();
@@ -117,14 +117,18 @@ public class ServerConnection {
                     callerWindow.LogMessage("Order failed to insert");
                 }
             } else if(msg.getString("Msg").toLowerCase().equals("new_user")) {
-                        String username = msg.getString("username");
+                         String username = msg.getString("username");
                         String password = msg.getString("password");
                         String phone = msg.getString("phone");
                         String email = msg.getString("email");
                         String address1 = msg.getString("address1");
-                        String address2 = msg.getString("address2");
+                        String address2 = msg.getString("building");
+                        String floor = msg.getString("floor");
+                        String apt = msg.getString("apt");
+                        double lat = msg.getDouble("lat");
+                        double longt = msg.getDouble("long");
                         SQL SQL = new SQL();
-                        JSONObject user = SQL.createNewCustomer(username, password, phone, email, address1,address2);
+                        JSONObject user = SQL.createNewCustomer(callerWindow, username, password, phone, email, address1,address2, floor, apt, lat, longt);
                         if(user != null) {
                             callerWindow.LogMessage("New user registered (" + username + ")");
                         }
