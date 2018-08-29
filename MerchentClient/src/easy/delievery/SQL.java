@@ -44,7 +44,7 @@ public class SQL {
             Connection con = this.Connect();
             if(con != null) {
                 int Id = getNextId("Customers");
-                String completeAddress = "Building number " + address2 + " Floor Number " + floor + ", Apt Number " + apt + " , " + address1; 
+                String completeAddress = "ع" + address2 + " د" + floor + " ش" + apt + " " + address1;
                 String values = "'" + Id + "',";
                 values += "'1',";
                 values += "'" + username + "',";
@@ -86,7 +86,7 @@ public class SQL {
                     invoiceValues += "'5',";
                     invoiceValues += "'0',";
                     invoiceValues += "'1',";
-                    invoiceValues += "'1'";
+                    invoiceValues += "'0'";
                     String query1 = "INSERT INTO Invoice_Order (ID, CO, Cust, Type, myUser, Status, Store, myTable, IT, SP) VALUES (" + invoiceValues + ")";
                     try(Statement stmt = con.createStatement()) {
                         int rows = stmt.executeUpdate(query1);
@@ -147,7 +147,7 @@ public class SQL {
                         invoiceValues += "'0',";
                     else
                         invoiceValues += "'1',";
-                    invoiceValues += "'1'";
+                    invoiceValues += "'0'";
                     String query1 = "INSERT INTO Invoice_Order (ID, CO, Cust, Type, myUser, Status, Store, myTable, IT, SP) VALUES (" + invoiceValues + ")";
                     try(Statement stmt = con.createStatement()) {
                         int rows = stmt.executeUpdate(query1);
@@ -161,7 +161,7 @@ public class SQL {
                                 values += "'" + item.getInt("itemId") + "',";
                                 values += "'" + item.getString("itemName") + "',";
                                 values += "'" + item.getDouble("itemPrice") + "',";
-                                values += "'" + item.getInt("qty") * -1 + "',";
+                                values += "'" + item.getDouble("qty") * -1 + "',";
                                 values += "'2',";
                                 values += "'5',";
                                 values += "'1'";

@@ -105,7 +105,7 @@ public class ServerConnection {
                     double value = 0;
                     for(int i = 0; i < items.length(); i++) {
                         JSONObject item = items.getJSONObject(i);
-                        value += item.getDouble("itemPrice");
+                        value += item.getDouble("itemPrice") * item.getDouble("qty");
                     }
                     callerWindow.LogMessage("Recieved an order to print");
                     JSONObject obj = new JSONObject();

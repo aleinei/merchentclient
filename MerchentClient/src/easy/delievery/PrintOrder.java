@@ -116,7 +116,7 @@ public class PrintOrder {
                 String telephone = userObject.getString("phone");
                 for(int i = 0; i < items.length(); i++) {
                    JSONObject item = items.getJSONObject(i);
-                   dataSource.add(item.getString("itemName"), item.getInt("qty"));
+                   dataSource.add(item.getString("itemName"), item.getDouble("qty") + "");                   
                 }
                 StyleBuilder colStyle = stl.style().setHorizontalTextAlignment(HorizontalTextAlignment.RIGHT).setBorder(stl.pen(1f, LineStyle.SOLID)).setPadding(3);
                 StyleBuilder titleStyle = stl.style().bold().setFontSize(20).setHorizontalTextAlignment(HorizontalTextAlignment.CENTER).underline();
@@ -136,7 +136,7 @@ public class PrintOrder {
                 JasperReportBuilder b = report().setTemplate(Templates.reportTemplate).
                     setReportName("امر تشغيل").
                     setDataSource(dataSource).
-                   addColumn(col.column("name", type.stringType()).setTitle("الصنف").setStyle(colStyle)).addColumn(col.column("qty", type.integerType()).
+                   addColumn(col.column("name", type.stringType()).setTitle("الصنف").setStyle(colStyle)).addColumn(col.column("qty", type.stringType()).
                             setTitle("الكمية").setStyle(colStyle)).
                     setPageFormat(PageType.A7).title(cmp.text("أمر تشغيل").setStyle(titleStyle))
                         .addPageHeader(cmp.text(invoice).setStyle(rightHeaderStyle)).
