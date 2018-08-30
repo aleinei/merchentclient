@@ -2,6 +2,10 @@
 
 to-do
 
-print a receipt, invoice , or both\n 
-col width to be changed\n
+print a receipt, invoice , or both
+
+
+col width to be changed
+
+
 add settings by ctrl+s
