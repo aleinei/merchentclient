@@ -59,6 +59,7 @@ public class SQL {
                     int rowsaffected = stmt.executeUpdate(query);
                     if(rowsaffected != 0) {
                         user.put("Msg", "user_created");
+                        user.put("id", Id);
                     } else {
                         user.put("Msg", "user_failed");
                     }

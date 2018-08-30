@@ -131,6 +131,8 @@ public class ServerConnection {
                         JSONObject user = SQL.createNewCustomer(callerWindow, username, password, phone, email, address1,address2, floor, apt, lat, longt);
                         if(user != null) {
                             callerWindow.LogMessage("New user registered (" + username + ")");
+                            msg.put("id", user.getInt("id"));
+                            SendMessage(msg.toString());
                         }
             }
             callerWindow.SetClientStatus("Waiting for message");
