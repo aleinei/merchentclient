@@ -251,7 +251,14 @@ public class SQL {
                                     }
                                 }
                             }
-                            PrintOrder.PrintWorkOrder(items, user, invoiceId, nextCO, this);
+                            if(EasyDelievery.CURRENT_METHOD.equals(EasyDelievery.PRINT_WORK_ORDER)) {
+                                PrintOrder.PrintWorkOrder(items, user, invoiceId, nextCO, this);
+                            } else if(EasyDelievery.CURRENT_METHOD.equals(EasyDelievery.PRINT_RECEIPT)) {
+                                PrintOrder.PrintReceipt(items, user, invoiceId, nextCO, getReceiptPrinter());
+                            } else if(EasyDelievery.CURRENT_METHOD.equals(EasyDelievery.PRINT_BOTH)) {
+                                PrintOrder.PrintWorkOrder(items, user, invoiceId, nextCO, this);
+                                PrintOrder.PrintReceipt(items, user, invoiceId, nextCO, getReceiptPrinter());
+                            }
                             return invoiceId;
                         } else {
                             System.out.println("rows was not done");
@@ -340,14 +347,14 @@ public class SQL {
             Connection con = this.Connect();
             if(con != null)
             {
-                String query = "SELECT ReportID From Sources WHERE Name = '" + source + "'";
+                String query = "SELECT Id From Sources WHERE Name = '" + source + "'";
                 try(Statement stmt = con.createStatement())
                 {
                     ResultSet rs = stmt.executeQuery(query);
                     if(rs.next())
                     {
-                        int reportID = rs.getInt("ReportID");
-                        String query2 = "SELECT Printer FROM ESIReports WHERE Id = " + reportID;
+                        int reportID = rs.getInt("Id");
+                        String query2 = "SELECT Printer FROM ESIReports WHERE Name = 'امر تشغيل " + reportID + "'";
                         try(Statement stmt2 = con.createStatement())
                         {
                             ResultSet rs2 = stmt2.executeQuery(query2);
@@ -355,6 +362,22 @@ public class SQL {
                                 return rs2.getString("Printer");
                         }
                     }
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
+    }
+    
+    public String getReceiptPrinter() {
+        try {
+            Connection con = this.Connect();
+            String query = "SELECT Printer FROM ESIReports WHERE Name = 'فاتورة مبيعات'";
+            try(Statement stmt = con.createStatement()) {
+                ResultSet rs = stmt.executeQuery(query);
+                if(rs.next()) {
+                    return rs.getString("Printer");
                 }
             }
         } catch (SQLException ex) {

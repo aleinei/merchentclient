@@ -162,4 +162,66 @@ public class PrintOrder {
                 Logger.getLogger(PrintOrder.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
+     public static void PrintReceipt(JSONArray items, String user, int invoiceID, int CO, String printerName)
+    {
+            try {
+                DRDataSource dataSource = new DRDataSource("name", "qty", "value", "total");
+                double totalValue = 0.0;
+                SimpleDateFormat forma = new SimpleDateFormat("yyyy/MM/dd hh:mm");
+                String date = forma.format(new Date());
+                String invoice = "م" + invoiceID;
+                JSONObject userObject = new JSONObject(user);
+                String username = userObject.getString("name");
+                String telephone = userObject.getString("phone");
+                for(int i = 0; i < items.length(); i++) {
+                   JSONObject item = items.getJSONObject(i);
+                   dataSource.add(item.getString("itemName"), item.getDouble("qty") + "",String.valueOf(item.getDouble("itemPrice")), String.valueOf((item.getDouble("itemPrice") * item.getDouble("qty"))));
+                   totalValue += item.getDouble("qty") * item.getDouble("itemPrice");
+                }
+                StyleBuilder colStyle = stl.style().setHorizontalTextAlignment(HorizontalTextAlignment.RIGHT).setBorder(stl.pen(1f, LineStyle.SOLID)).setPadding(3);
+                StyleBuilder titleStyle = stl.style().bold().setFontSize(20).setHorizontalTextAlignment(HorizontalTextAlignment.CENTER).underline();
+                StyleBuilder leftHeaderStyle = stl.style().bold().setHorizontalTextAlignment(HorizontalTextAlignment.RIGHT).setFontSize(12).setPadding(0).setLineSpacing(LineSpacing.SINGLE);
+                StyleBuilder rightHeaderStyle = stl.style().bold().setHorizontalTextAlignment(HorizontalTextAlignment.RIGHT).setFontSize(8).setLineSpacing(LineSpacing.SINGLE);
+                StyleBuilder centerHeaderStyle = stl.style().bold().setHorizontalTextAlignment(HorizontalTextAlignment.CENTER).setPadding(0).setLineSpacing(LineSpacing.SINGLE);
+                StyleBuilder numberStyle = stl.style().bold().setHorizontalTextAlignment(HorizontalTextAlignment.RIGHT).setFontSize(12);
+                PrintService[] services = PrinterJob.lookupPrintServices();
+                PrintService s = null;
+                for(int i = 0; i < services.length; i++) {
+                    System.out.println(services[i].getName());
+                    if(services[i].getName().equals(printerName)) {
+                        s = services[i];
+                    }
+                
+                }
+                JasperReportBuilder b = report().setTemplate(Templates.reportTemplate).
+                    setReportName("فاتورة دليفري").
+                    setDataSource(dataSource).
+                   addColumn(col.column("total", type.stringType()).setTitle("الاجمالي").setStyle(colStyle)).addColumn(col.column("qty", type.stringType()).
+                      setTitle("الكمية").setStyle(colStyle)).addColumn(col.column("value", type.stringType()).setTitle("السعر").setStyle(colStyle)).
+                      addColumn(col.column("name", type.stringType()).setTitle("الصنف").setStyle(colStyle)).
+                    setPageFormat(PageType.A7).title(cmp.text("فاتورة").setStyle(titleStyle))
+                        .addPageHeader(cmp.text(invoice).setStyle(rightHeaderStyle)).
+                        addPageHeader(cmp.horizontalList().add(cmp.text("الرقم: " + CO).setStyle(numberStyle))).
+                        addPageHeader(cmp.horizontalList().add(cmp.text("الوقت : " + date).setStyle(leftHeaderStyle)).add(cmp.text("خدمه: دليفري").setStyle(rightHeaderStyle).setWidth(30)))
+                        .addPageHeader(cmp.horizontalList().add(cmp.text("تسليم : " + date).setStyle(leftHeaderStyle)).add(cmp.text("العميل : " + username).setStyle(rightHeaderStyle).setWidth(30))).addPageHeader(cmp.text("تليفون  : " + telephone).setStyle(rightHeaderStyle))
+                        .addPageFooter(cmp.text("القيمه: " + totalValue).setStyle(centerHeaderStyle));
+                 JasperPrint print = b.toJasperPrint();
+                PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
+                printRequestAttributeSet.add(MediaSizeName.NA_LETTER);
+                printRequestAttributeSet.add(new Copies(1));
+                JRPrintServiceExporter exporter = new JRPrintServiceExporter();
+                SimplePrintServiceExporterConfiguration config = new SimplePrintServiceExporterConfiguration();
+                PrintServiceAttributeSet printServiceAttributeSet = new HashPrintServiceAttributeSet();
+                printServiceAttributeSet.add(new PrinterName(printerName, null));
+                config.setPrintService(s);
+                config.setPrintRequestAttributeSet(printRequestAttributeSet);
+                config.setDisplayPrintDialog(false);
+                config.setDisplayPageDialog(false);
+                exporter.setExporterInput(new SimpleExporterInput(print));
+                exporter.setConfiguration(config);
+                exporter.exportReport();
+            } catch (JSONException | JRException | DRException ex) {
+                Logger.getLogger(PrintOrder.class.getName()).log(Level.SEVERE, null, ex);
+            }
+    }
 }

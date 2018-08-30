@@ -20,7 +20,11 @@ public class EasyDelievery {
     public static String DB_FILE_NAME = new JFileChooser().getFileSystemView().getDefaultDirectory().toString() + "/ESI/" + "db.confg";
     public static String ESI_FILES_DIRECTORY = new JFileChooser().getFileSystemView().getDefaultDirectory().toString() + "/ESI/";
     public static String CURRENT_DB = "";
+    public static String CURRENT_METHOD = "";
     public static MainWindow window;
+    public static String PRINT_WORK_ORDER = "work_order";
+    public static String PRINT_RECEIPT = "receipt";
+    public static String PRINT_BOTH = "both";
     public static void main(String[] args) {
         File directory = new File(ESI_FILES_DIRECTORY);
         if(!directory.exists()) {
@@ -32,7 +36,9 @@ public class EasyDelievery {
                 FileReader reader = new FileReader(DB_FILE_NAME);
                 BufferedReader bReader = new BufferedReader(reader);
                 CURRENT_DB = bReader.readLine();
+                CURRENT_METHOD = bReader.readLine();
                 System.out.println(CURRENT_DB);
+                System.out.println(CURRENT_METHOD);
             } catch (Exception ex) {
                 Logger.getLogger(EasyDelievery.class.getName()).log(Level.SEVERE, null, ex);
                 ApplicationInit app = new ApplicationInit(false);

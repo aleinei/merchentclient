@@ -129,8 +129,7 @@ public class ApplicationInit extends javax.swing.JFrame {
                 return;
             }
             if(!isEditing) {
-             EasyDelievery.window = new MainWindow();
-             EasyDelievery.window.Start();
+             PrintRequestWindow window = new PrintRequestWindow();
             } else {
                 EasyDelievery.window.Reload();
             }
