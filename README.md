@@ -15,3 +15,9 @@ upload to esi-soft.com - done
 
 
 change latitude to lat - longtiude to long  - waiting
+
+Please add These Project for the Merchant Project:
+  1-  Easy Pilot
+  2-  Easy Preparation
+  3-  Easy Cashier
+  4-  Easy Merchant
