@@ -8,7 +8,7 @@ print a receipt, invoice , or both - done
 col width to be changed
 
 
-add settings by ctrl+s
+add settings by ctrl+s - done
 
 
 upload to esi-soft.com - done
