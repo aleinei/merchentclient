@@ -55,7 +55,7 @@ import org.json.JSONObject;
 public class PrintOrder {
     
     
-    public static void PrintWorkOrder(JSONArray items, String user, int invoiceID, int CO, SQL sql)
+    public static void PrintWorkOrder(JSONArray items, String user, int invoiceID, int CO, SQL sql, boolean isTakeAway)
     {
         ArrayList<String> Sources = new ArrayList();
         for(int i = 0; i < items.length(); i ++)
@@ -100,11 +100,11 @@ public class PrintOrder {
                     Logger.getLogger(PrintOrder.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            PrintOrderToWork(items2, user, invoiceID,  Sources.get(i), CO, sql.GetPrinterNameFromSource(Sources.get(i)));
+            PrintOrderToWork(items2, user, invoiceID,  Sources.get(i), CO, sql.GetPrinterNameFromSource(Sources.get(i)), isTakeAway);
         }
     }
     
-    public static void PrintOrderToWork(JSONArray items, String user, int invoiceID,  String source, int CO, String printerName)
+    public static void PrintOrderToWork(JSONArray items, String user, int invoiceID,  String source, int CO, String printerName, boolean isTakeAway)
     {
             try {
                 DRDataSource dataSource = new DRDataSource("name", "qty");
@@ -114,6 +114,7 @@ public class PrintOrder {
                 JSONObject userObject = new JSONObject(user);
                 String username = userObject.getString("name");
                 String telephone = userObject.getString("phone");
+                String service = isTakeAway? "تيك اواي" : "دليفري";
                 for(int i = 0; i < items.length(); i++) {
                    JSONObject item = items.getJSONObject(i);
                    dataSource.add(item.getString("itemName"), item.getDouble("qty") + "");                   
@@ -141,7 +142,7 @@ public class PrintOrder {
                     setPageFormat(PageType.A7).title(cmp.text("أمر تشغيل").setStyle(titleStyle))
                         .addPageHeader(cmp.text(invoice).setStyle(rightHeaderStyle)).
                         addPageHeader(cmp.horizontalList().add(cmp.text("الرقم: " + CO).setStyle(numberStyle)).add(cmp.text("القسم : " + source).setStyle(rightHeaderStyle).setWidth(100))).
-                        addPageHeader(cmp.horizontalList().add(cmp.text("الوقت : " + date).setStyle(leftHeaderStyle)).add(cmp.text("خدمه: دليفري").setStyle(rightHeaderStyle).setWidth(30)))
+                        addPageHeader(cmp.horizontalList().add(cmp.text("الوقت : " + date).setStyle(leftHeaderStyle)).add(cmp.text("خدمه: " + service).setStyle(rightHeaderStyle).setWidth(30)))
                         .addPageHeader(cmp.horizontalList().add(cmp.text("تسليم : " + date).setStyle(leftHeaderStyle)).add(cmp.text("العميل : " + username).setStyle(rightHeaderStyle).setWidth(30))).addPageHeader(cmp.text("تليفون  : " + telephone).setStyle(rightHeaderStyle));
                  JasperPrint print = b.toJasperPrint();
                 PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
@@ -162,7 +163,7 @@ public class PrintOrder {
                 Logger.getLogger(PrintOrder.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
-     public static void PrintReceipt(JSONArray items, String user, int invoiceID, int CO, String printerName)
+     public static void PrintReceipt(JSONArray items, String user, int invoiceID, int CO, String printerName, boolean isTakeAway)
     {
             try {
                 DRDataSource dataSource = new DRDataSource("name", "qty", "value", "total");
@@ -173,6 +174,7 @@ public class PrintOrder {
                 JSONObject userObject = new JSONObject(user);
                 String username = userObject.getString("name");
                 String telephone = userObject.getString("phone");
+                String service = isTakeAway? "تيك اواي" : "دليفري";
                 for(int i = 0; i < items.length(); i++) {
                    JSONObject item = items.getJSONObject(i);
                    dataSource.add(item.getString("itemName"), item.getDouble("qty") + "",String.valueOf(item.getDouble("itemPrice")), String.valueOf((item.getDouble("itemPrice") * item.getDouble("qty"))));
@@ -202,7 +204,7 @@ public class PrintOrder {
                     setPageFormat(PageType.A7).title(cmp.text("فاتورة").setStyle(titleStyle))
                         .addPageHeader(cmp.text(invoice).setStyle(rightHeaderStyle)).
                         addPageHeader(cmp.horizontalList().add(cmp.text("الرقم: " + CO).setStyle(numberStyle))).
-                        addPageHeader(cmp.horizontalList().add(cmp.text("الوقت : " + date).setStyle(leftHeaderStyle)).add(cmp.text("خدمه: دليفري").setStyle(rightHeaderStyle).setWidth(30)))
+                        addPageHeader(cmp.horizontalList().add(cmp.text("الوقت : " + date).setStyle(leftHeaderStyle)).add(cmp.text("خدمه: " + service).setStyle(rightHeaderStyle).setWidth(30)))
                         .addPageHeader(cmp.horizontalList().add(cmp.text("تسليم : " + date).setStyle(leftHeaderStyle)).add(cmp.text("العميل : " + username).setStyle(rightHeaderStyle).setWidth(30))).addPageHeader(cmp.text("تليفون  : " + telephone).setStyle(rightHeaderStyle))
                         .addPageFooter(cmp.text("القيمه: " + totalValue).setStyle(centerHeaderStyle));
                  JasperPrint print = b.toJasperPrint();

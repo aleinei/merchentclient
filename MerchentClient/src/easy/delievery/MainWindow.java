@@ -6,6 +6,8 @@
 package easy.delievery;
 
 import com.sun.glass.events.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -22,6 +24,43 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
+        addWindowListener(new WindowListener() {
+            @Override
+            public void windowOpened(WindowEvent we) {
+                //window opened
+            }
+
+            @Override
+            public void windowClosing(WindowEvent we) {
+                //window closing
+                connection.close();
+            }
+
+            @Override
+            public void windowClosed(WindowEvent we) {
+                //windowclosed
+            }
+
+            @Override
+            public void windowIconified(WindowEvent we) {
+                //windowIconified
+            }
+
+            @Override
+            public void windowDeiconified(WindowEvent we) {
+                //
+            }
+
+            @Override
+            public void windowActivated(WindowEvent we) {
+                //
+            }
+
+            @Override
+            public void windowDeactivated(WindowEvent we) {
+                //
+            }
+        });
     }
     
     public void Start() {
@@ -162,6 +201,8 @@ public class MainWindow extends javax.swing.JFrame {
     private void onKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_onKeyPressed
         if(evt.getKeyCode() == KeyEvent.VK_E && evt.isControlDown()) {
             ApplicationInit app = new ApplicationInit(true);
+        } else if(evt.getKeyCode() == KeyEvent.VK_S && evt.isControlDown()) {
+            PrintRequestWindow window = new PrintRequestWindow(true);
         }
     }//GEN-LAST:event_onKeyPressed
 

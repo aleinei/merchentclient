@@ -14,6 +14,8 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.nio.charset.StandardCharsets;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.print.PrintService;
@@ -66,6 +68,12 @@ public class ServerConnection {
                 //serverSocket = new Socket("41.39.215.97", 2550);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(serverSocket.getInputStream(), "UTF-8"));
                 SendConnection();
+                new Timer().schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        SendCheckOrders();
+                    }
+                }, 5000);
                 callerWindow.SetClientStatus("Waiting for message");
                 String line;
                 while((line = reader.readLine()) != null) {
@@ -92,6 +100,7 @@ public class ServerConnection {
     
     public void HandleMessage(String message) {
         try {
+            callerWindow.LogMessage(message);
             JSONObject msg = new JSONObject(message);
             if(msg.getString("Msg").toLowerCase().equals("print_order")) {
                 JSONArray items = msg.getJSONArray("items");
@@ -117,7 +126,7 @@ public class ServerConnection {
                     callerWindow.LogMessage("Order failed to insert");
                 }
             } else if(msg.getString("Msg").toLowerCase().equals("new_user")) {
-                         String username = msg.getString("username");
+                        String username = msg.getString("username");
                         String password = msg.getString("password");
                         String phone = msg.getString("phone");
                         String email = msg.getString("email");
@@ -258,12 +267,46 @@ public class ServerConnection {
         }
     }
     
+    public void SendCheckOrders() {
+        try {
+            PrintWriter out = new PrintWriter(new OutputStreamWriter(serverSocket.getOutputStream(), StandardCharsets.UTF_8), true);
+            JSONObject connectMessage = new JSONObject();
+            connectMessage.put("Msg", "check_orders");
+            out.println(connectMessage.toString());
+        } catch (JSONException ex) {
+            Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+            callerWindow.LogMessage(ex.toString());
+            callerWindow.SetClientStatus("Unable to send the connect message");
+        } catch (IOException ex) {
+            Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     public void SendMessage(String message) {
         try {
             PrintWriter output = new PrintWriter( new OutputStreamWriter(serverSocket.getOutputStream(), StandardCharsets.UTF_8), true);
             output.println(message);
         } catch (IOException ex) {
             Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void close() {
+        if(serverSocket != null) {
+            try {
+                try {
+                    PrintWriter out = new PrintWriter(new OutputStreamWriter(serverSocket.getOutputStream(), StandardCharsets.UTF_8), true);
+                    JSONObject obj = new JSONObject();
+                    obj.put("Msg", "close_connection");
+                    out.println(obj.toString());
+                } catch (JSONException ex) {
+                    Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                serverSocket.close();
+                serverSocket = null;
+            } catch (IOException ex) {
+                Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

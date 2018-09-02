@@ -252,12 +252,12 @@ public class SQL {
                                 }
                             }
                             if(EasyDelievery.CURRENT_METHOD.equals(EasyDelievery.PRINT_WORK_ORDER)) {
-                                PrintOrder.PrintWorkOrder(items, user, invoiceId, nextCO, this);
+                                PrintOrder.PrintWorkOrder(items, user, invoiceId, nextCO, this, isTakeAway);
                             } else if(EasyDelievery.CURRENT_METHOD.equals(EasyDelievery.PRINT_RECEIPT)) {
-                                PrintOrder.PrintReceipt(items, user, invoiceId, nextCO, getReceiptPrinter());
+                                PrintOrder.PrintReceipt(items, user, invoiceId, nextCO, getReceiptPrinter(), isTakeAway);
                             } else if(EasyDelievery.CURRENT_METHOD.equals(EasyDelievery.PRINT_BOTH)) {
-                                PrintOrder.PrintWorkOrder(items, user, invoiceId, nextCO, this);
-                                PrintOrder.PrintReceipt(items, user, invoiceId, nextCO, getReceiptPrinter());
+                                PrintOrder.PrintWorkOrder(items, user, invoiceId, nextCO, this, isTakeAway);
+                                PrintOrder.PrintReceipt(items, user, invoiceId, nextCO, getReceiptPrinter(), isTakeAway);
                             }
                             return invoiceId;
                         } else {

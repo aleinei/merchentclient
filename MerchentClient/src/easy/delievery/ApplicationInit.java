@@ -121,6 +121,10 @@ public class ApplicationInit extends javax.swing.JFrame {
                 FileWriter fr = new FileWriter(EasyDelievery.DB_FILE_NAME, false);
                 BufferedWriter br = new BufferedWriter(fr);
                 br.write(dbName);
+                br.write("\n");
+                if(!EasyDelievery.CURRENT_METHOD.isEmpty()) {
+                    br.write(EasyDelievery.CURRENT_METHOD);
+                }
                 br.close();
                 EasyDelievery.CURRENT_DB = dbName;
             } catch (IOException ex) {
@@ -129,7 +133,7 @@ public class ApplicationInit extends javax.swing.JFrame {
                 return;
             }
             if(!isEditing) {
-             PrintRequestWindow window = new PrintRequestWindow();
+             PrintRequestWindow window = new PrintRequestWindow(false);
             } else {
                 EasyDelievery.window.Reload();
             }

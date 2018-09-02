@@ -24,10 +24,12 @@ public class PrintRequestWindow extends javax.swing.JFrame {
      * Creates new form PrintRequestWindow
      */
     String method = "";
-    public PrintRequestWindow() {
+    boolean isEditing;
+    public PrintRequestWindow(boolean isEditing) {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
+        this.isEditing = isEditing;
     }
 
     /**
@@ -154,10 +156,13 @@ public class PrintRequestWindow extends javax.swing.JFrame {
                 }
             }
             try {
-                FileWriter fr = new FileWriter(EasyDelievery.DB_FILE_NAME, true);
+                FileWriter fr = new FileWriter(EasyDelievery.DB_FILE_NAME, !isEditing);
                 BufferedWriter br = new BufferedWriter(fr);
-                br.append("\n");
-                br.append(method);
+                if(isEditing) {
+                    br.write(EasyDelievery.CURRENT_DB);
+                    br.write("\n");
+                }
+                br.write(method);
                 br.close();
                 EasyDelievery.CURRENT_METHOD = method;
             } catch (IOException ex) {
@@ -165,8 +170,10 @@ public class PrintRequestWindow extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(rootPane,  "Unable to create the configuration file, please try again", "File create failed", JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            EasyDelievery.window = new MainWindow();
-            EasyDelievery.window.Start();
+            if(!isEditing) {
+                EasyDelievery.window = new MainWindow();
+                EasyDelievery.window.Start();
+            }
             this.dispose();
             
     }//GEN-LAST:event_saveBtnActionPerformed
@@ -198,12 +205,9 @@ public class PrintRequestWindow extends javax.swing.JFrame {
         }
         //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new PrintRequestWindow().setVisible(true);
-            }
-        });
+
+        
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
