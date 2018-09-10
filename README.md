@@ -21,5 +21,7 @@ to-do
     a-  The mobile Application's Mobile Number 
     b-  Its IP Address
 
+8-  When a new Customer Registers, a desktop application should popup to indicate new registeration for the merchant to contact the new customer and confirm his registeration
+
 
 
