@@ -27,4 +27,5 @@ to-do
 
 9-  A new form should be created to evaluate the customers' requests for activations with two buttons: [True] / [Fake]
 
-10- handling requestes are explained in the easy server No. 
+10- handling requestes are explained in the easy server (points from 5 to 12)
+
