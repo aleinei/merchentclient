@@ -23,5 +23,8 @@ to-do
 
 8-  When a new Customer Registers, a desktop application should popup to indicate new registeration for the merchant to contact the new customer and confirm his registeration
 
+20180911:
 
+9-  A new form should be created to evaluate the customers' requests for activations with two buttons: [True] / [Fake]
 
+10- handling requestes are explained in the easy server No. 
