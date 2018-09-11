@@ -29,3 +29,4 @@ to-do
 
 10- handling requestes are explained in the easy server (points from 5 to 12)
 
+11- Add new setting for the merchant client to indicate if the items displayed on the merchant app would display all items or only the ones in-stock
