@@ -21,6 +21,7 @@ import org.json.JSONObject;
  *
  * @author Ahmed Stan
  */
+
 public class SQL {
     
     
@@ -38,6 +39,7 @@ public class SQL {
             return null;
         }
     }
+    
         public JSONObject createNewCustomer(MainWindow window, String username, String password, String phone, String email, String address1, String address2, String floor, String apt, double lat, double longt) {
         JSONObject user = new JSONObject();
         try {
@@ -325,17 +327,86 @@ public class SQL {
         }
         return false;
     }
-    
-    public JSONObject getKitchenOrders() {
+    public void registerNewCustomer(JSONObject user){
+        try {
+            
+            int Id = getNextId("Customers");
+            Connection con = this.Connect();
+            String query ="SELECT * from Customers WHERE Telephone =" + user.get("Telephone");
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            if(!rs.next())
+            {
+                query =  "INSERT INTO Customers (Id, Type, Name, Password, Telephone, [E-mail], Address1, Latitude, Longitude) VALUES (" 
+                   + Id + ", " + 1 + ", '" + user.getString("Name")+"', '" + user.getString("Password") + "', " + user.getString("Telephone") + ", '" + user.getString("Email")
+                   + "', '" + user.getString("Address1")+ "', " + user.getString("Latitude")+ ", " +user.getString("Longitude") + ")";
+
+                stmt = con.createStatement();           
+                stmt.executeUpdate(query);
+
+            }
+           
+            
+        } catch ( SQLException | JSONException ex) {
+            Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+
+    }
+    public JSONObject getApplicants(){
+        JSONObject object = new JSONObject();
+        try {
+            object.put("Msg", "pendingApplications");
+            JSONArray users = new JSONArray();
+            Connection con = this.Connect();
+            String query = "SELECT * from TemporaryCustomers";
+            Statement stmt = con.createStatement();     
+            ResultSet rs = stmt.executeQuery(query);
+            String x = stmt.toString();
+            while(rs.next()){
+                JSONObject user = new JSONObject();
+                user.put("Name", rs.getString("Name"));
+                user.put("Telephone",rs.getString("Telephone"));
+                user.put("Address1",rs.getString("Address1"));
+                user.put("Address2",rs.getString("Address2"));
+                user.put("Latitude",rs.getString("Latitude"));
+                user.put("Longitude",rs.getString("Longitude"));
+                user.put("Email",rs.getString("E-mail"));
+                user.put("Password",rs.getString("Password"));
+                user.put("Status",rs.getString("Status"));
+                
+                users.put(user);
+            }
+            object.put("users", users);
+            
+        } catch (JSONException | SQLException ex) {
+            Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return object;  
+    }
+    public void updateApplicants(JSONObject user){
+        
+        try {
+            
+            Connection con = this.Connect();
+            String query =  "UPDATE TemporaryCustomers SET Status = "+ user.get("Status")+" Where Telephone = '"+user.get("Telephone") + "' ";
+            Statement stmt = con.createStatement();
+            stmt.executeUpdate(query);
+
+            
+        } catch ( SQLException | JSONException ex) {
+            Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ 
+    }
+    public JSONObject setKitchenOrders() {
         JSONObject object = new JSONObject();
         try {
             object.put("Msg", "kitchen_order");
             Connection con = this.Connect();
             String query = "SELECT DISTINCT dbo.NewGridInvoiceDetails.Invoice_Order_Id as Id, dbo.Invoice_Order.CO as myCO, dbo.Invoice_Order.[myTable], dbo.NewGridInvoiceDetails.[Destination] , dbo.Invoice_Order.[It] , case  dbo.Invoice_Order.[It] when 0 then 'طلب ' + dbo.NewGridInvoiceDetails.[Destination] + '، رقم: '+   cast(dbo.Invoice_Order.CO as nvarchar) when 1 then 'طلب ' + dbo.NewGridInvoiceDetails.[Destination] + '، رقم: '+  cast(dbo.Invoice_Order.CO as nvarchar) + ' العميل: ' + dbo.NewGridInvoiceDetails.Account  when 2 then 'طلب ' + dbo.NewGridInvoiceDetails.[Destination]  + '، ترابيزه رقم: ' + cast(dbo.Invoice_Order.[myTable] as nvarchar)  end As CO FROM dbo.NewGridInvoiceDetails INNER JOIN dbo.Invoice_Order ON dbo.NewGridInvoiceDetails.Invoice_Order_Id =  dbo.Invoice_Order.Id \n" +
                                "Where (dbo.NewGridInvoiceDetails.Parent = 0) And (dbo.NewGridInvoiceDetails.Kitchen Is Null And Not dbo.NewGridInvoiceDetails.Ordered Is Null) And (CONVERT(Char(10), dbo.NewGridInvoiceDetails.Modified, 120) = CONVERT(Char(10), GETDATE(), 120)) AND  (NOT (dbo.NewGridInvoiceDetails.Ordered IS NULL)) AND  (dbo.NewGridInvoiceDetails.SourceId=1)";
-        } catch (JSONException ex) {
-            Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
+        } catch (JSONException | SQLException ex) {
             Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return object;

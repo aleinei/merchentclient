@@ -64,7 +64,8 @@ public class ServerConnection {
     public void Connect() {
         if(!isConnected) {
             try {
-                serverSocket = new Socket("196.218.98.134", 2550);
+                serverSocket = new Socket("185.181.10.83", 2550);
+                //serverSocket = new Socket("196.218.98.134", 2550);
                 //serverSocket = new Socket("41.39.215.97", 2550);
                 BufferedReader reader = new BufferedReader(new InputStreamReader(serverSocket.getInputStream(), "UTF-8"));
                 SendConnection();
@@ -282,7 +283,7 @@ public class ServerConnection {
         }
     }
     
-    public void SendMessage(String message) {
+     public void SendMessage(String message) {
         try {
             PrintWriter output = new PrintWriter( new OutputStreamWriter(serverSocket.getOutputStream(), StandardCharsets.UTF_8), true);
             output.println(message);
