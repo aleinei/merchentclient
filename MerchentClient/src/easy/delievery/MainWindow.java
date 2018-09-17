@@ -6,6 +6,7 @@
 package easy.delievery;
 
 import com.sun.glass.events.KeyEvent;
+import java.awt.Panel;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.sql.SQLException;
@@ -13,6 +14,10 @@ import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -115,6 +120,7 @@ public class MainWindow extends javax.swing.JFrame {
         serverStatus = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         logMessages = new javax.swing.JTextArea();
+        jCheckBox1 = new javax.swing.JCheckBox();
         pendingCustomersPane = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         pendingUsersTable = new javax.swing.JTable();
@@ -168,6 +174,18 @@ public class MainWindow extends javax.swing.JFrame {
         logMessages.setFocusable(false);
         jScrollPane2.setViewportView(logMessages);
 
+        jCheckBox1.setText("Auto Accept");
+        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jCheckBox1ItemStateChanged(evt);
+            }
+        });
+        jCheckBox1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jCheckBox1StateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout serverMonitorPaneLayout = new javax.swing.GroupLayout(serverMonitorPane);
         serverMonitorPane.setLayout(serverMonitorPaneLayout);
         serverMonitorPaneLayout.setHorizontalGroup(
@@ -186,8 +204,10 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(serverStatus)))
                         .addGap(68, 68, 68))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE))
-                .addContainerGap(219, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
+                .addComponent(jCheckBox1)
+                .addGap(41, 41, 41))
         );
         serverMonitorPaneLayout.setVerticalGroup(
             serverMonitorPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -195,13 +215,14 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(serverMonitorPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(clientStatus))
+                    .addComponent(clientStatus)
+                    .addComponent(jCheckBox1))
                 .addGap(18, 18, 18)
                 .addGroup(serverMonitorPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(serverStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -386,10 +407,7 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
-    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        // TODO add your handling code here:
-        //System.out.println("tab changed");
-
+    void updateTables(){
         sql = new SQL();
         try {
             sql.Connect();
@@ -402,6 +420,12 @@ public class MainWindow extends javax.swing.JFrame {
         } catch (SQLException | JSONException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+        // TODO add your handling code here:
+        //System.out.println("tab changed");
+        updateTables();
+       
     }//GEN-LAST:event_jTabbedPane1StateChanged
 
     private void pendingRefuseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pendingRefuseButtonActionPerformed
@@ -439,6 +463,27 @@ public class MainWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
         //updateTable(pendingUsersTable);
     }//GEN-LAST:event_pendingUsersTableFocusGained
+
+    private void jCheckBox1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox1StateChanged
+        // TODO add your handling code here:
+      
+        
+    }//GEN-LAST:event_jCheckBox1StateChanged
+
+    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
+        // TODO add your handling code here:
+        boolean checked = jCheckBox1.isSelected();
+        if(checked){
+            jTabbedPane1.remove(1);
+        }
+
+        else{
+            //pendingCustomersPane = new JPanel();
+            //updateTables();
+            pendingCustomersPane.setName("Pending Customers");
+            jTabbedPane1.add(pendingCustomersPane, 1);
+        }
+    }//GEN-LAST:event_jCheckBox1ItemStateChanged
     DefaultTableModel model;
     void updateTable(JTable table){
         model = (DefaultTableModel) table.getModel();
@@ -546,6 +591,7 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JPanel acceptedCustomersPane;
     private javax.swing.JButton acceptedtRefuseButton;
     private javax.swing.JLabel clientStatus;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
