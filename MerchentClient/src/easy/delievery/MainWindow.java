@@ -39,10 +39,6 @@ public class MainWindow extends javax.swing.JFrame {
         initComponents();
         setVisible(true);
         setLocationRelativeTo(null);
-        acceptedApproveButton.setVisible(false);
-        acceptedtRefuseButton.setVisible(false);
-        //refusedApproveButton.setVisible(false);
-        refusedRefuseButton.setVisible(false);
         addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent we) {
@@ -112,7 +108,6 @@ public class MainWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jTabbedPane1 = new javax.swing.JTabbedPane();
         serverMonitorPane = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         clientStatus = new javax.swing.JLabel();
@@ -120,39 +115,12 @@ public class MainWindow extends javax.swing.JFrame {
         serverStatus = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         logMessages = new javax.swing.JTextArea();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        pendingCustomersPane = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        pendingUsersTable = new javax.swing.JTable();
-        pendingApproveButton = new javax.swing.JButton();
-        pendingRefuseButton = new javax.swing.JButton();
-        acceptedCustomersPane = new javax.swing.JPanel();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        AcceptedUsersTable = new javax.swing.JTable();
-        acceptedApproveButton = new javax.swing.JButton();
-        acceptedtRefuseButton = new javax.swing.JButton();
-        refusedCustomersPane = new javax.swing.JPanel();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        refusedUsersTable = new javax.swing.JTable();
-        refusedApproveButton = new javax.swing.JButton();
-        refusedRefuseButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Easy Delievery - Client");
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 onKeyPressed(evt);
-            }
-        });
-
-        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jTabbedPane1StateChanged(evt);
-            }
-        });
-        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTabbedPane1MouseClicked(evt);
             }
         });
 
@@ -174,18 +142,6 @@ public class MainWindow extends javax.swing.JFrame {
         logMessages.setFocusable(false);
         jScrollPane2.setViewportView(logMessages);
 
-        jCheckBox1.setText("Auto Accept");
-        jCheckBox1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jCheckBox1ItemStateChanged(evt);
-            }
-        });
-        jCheckBox1.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                jCheckBox1StateChanged(evt);
-            }
-        });
-
         javax.swing.GroupLayout serverMonitorPaneLayout = new javax.swing.GroupLayout(serverMonitorPane);
         serverMonitorPane.setLayout(serverMonitorPaneLayout);
         serverMonitorPaneLayout.setHorizontalGroup(
@@ -204,9 +160,7 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(serverStatus)))
                         .addGap(68, 68, 68))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
-                .addComponent(jCheckBox1)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE))
                 .addGap(41, 41, 41))
         );
         serverMonitorPaneLayout.setVerticalGroup(
@@ -215,180 +169,25 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(serverMonitorPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(clientStatus)
-                    .addComponent(jCheckBox1))
+                    .addComponent(clientStatus))
                 .addGap(18, 18, 18)
                 .addGroup(serverMonitorPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(serverStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        jTabbedPane1.addTab("Server Monitor", serverMonitorPane);
-
-        pendingUsersTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Name", "Phone", "Address1", "Address2", "Status"
-            }
-        ));
-        pendingUsersTable.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                pendingUsersTableFocusGained(evt);
-            }
-        });
-        jScrollPane1.setViewportView(pendingUsersTable);
-
-        pendingApproveButton.setText("Approve");
-        pendingApproveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pendingApproveButtonActionPerformed(evt);
-            }
-        });
-
-        pendingRefuseButton.setText("Refuse");
-        pendingRefuseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pendingRefuseButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout pendingCustomersPaneLayout = new javax.swing.GroupLayout(pendingCustomersPane);
-        pendingCustomersPane.setLayout(pendingCustomersPaneLayout);
-        pendingCustomersPaneLayout.setHorizontalGroup(
-            pendingCustomersPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(pendingCustomersPaneLayout.createSequentialGroup()
-                .addGap(257, 257, 257)
-                .addComponent(pendingApproveButton)
-                .addGap(83, 83, 83)
-                .addComponent(pendingRefuseButton)
-                .addContainerGap(244, Short.MAX_VALUE))
-        );
-        pendingCustomersPaneLayout.setVerticalGroup(
-            pendingCustomersPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(pendingCustomersPaneLayout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(pendingCustomersPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(pendingRefuseButton)
-                    .addComponent(pendingApproveButton))
-                .addGap(0, 6, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Pending Customers", pendingCustomersPane);
-
-        AcceptedUsersTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Name", "Phone", "Address1", "Address2", "Status"
-            }
-        ));
-        jScrollPane5.setViewportView(AcceptedUsersTable);
-
-        acceptedApproveButton.setText("Approve");
-        acceptedApproveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acceptedApproveButtonActionPerformed(evt);
-            }
-        });
-
-        acceptedtRefuseButton.setText("Refuse");
-        acceptedtRefuseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                acceptedtRefuseButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout acceptedCustomersPaneLayout = new javax.swing.GroupLayout(acceptedCustomersPane);
-        acceptedCustomersPane.setLayout(acceptedCustomersPaneLayout);
-        acceptedCustomersPaneLayout.setHorizontalGroup(
-            acceptedCustomersPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5)
-            .addGroup(acceptedCustomersPaneLayout.createSequentialGroup()
-                .addGap(257, 257, 257)
-                .addComponent(acceptedApproveButton)
-                .addGap(83, 83, 83)
-                .addComponent(acceptedtRefuseButton)
-                .addContainerGap(244, Short.MAX_VALUE))
-        );
-        acceptedCustomersPaneLayout.setVerticalGroup(
-            acceptedCustomersPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(acceptedCustomersPaneLayout.createSequentialGroup()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(acceptedCustomersPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(acceptedtRefuseButton)
-                    .addComponent(acceptedApproveButton))
-                .addGap(0, 6, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Accepted Customers", acceptedCustomersPane);
-
-        refusedUsersTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Name", "Phone", "Address1", "Address2", "Status"
-            }
-        ));
-        jScrollPane6.setViewportView(refusedUsersTable);
-
-        refusedApproveButton.setText("Approve");
-        refusedApproveButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refusedApproveButtonActionPerformed(evt);
-            }
-        });
-
-        refusedRefuseButton.setText("Refuse");
-        refusedRefuseButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                refusedRefuseButtonActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout refusedCustomersPaneLayout = new javax.swing.GroupLayout(refusedCustomersPane);
-        refusedCustomersPane.setLayout(refusedCustomersPaneLayout);
-        refusedCustomersPaneLayout.setHorizontalGroup(
-            refusedCustomersPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane6)
-            .addGroup(refusedCustomersPaneLayout.createSequentialGroup()
-                .addGap(257, 257, 257)
-                .addComponent(refusedApproveButton)
-                .addGap(83, 83, 83)
-                .addComponent(refusedRefuseButton)
-                .addContainerGap(244, Short.MAX_VALUE))
-        );
-        refusedCustomersPaneLayout.setVerticalGroup(
-            refusedCustomersPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(refusedCustomersPaneLayout.createSequentialGroup()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(refusedCustomersPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(refusedRefuseButton)
-                    .addComponent(refusedApproveButton))
-                .addGap(0, 6, Short.MAX_VALUE))
-        );
-
-        jTabbedPane1.addTab("Refused Customers", refusedCustomersPane);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(serverMonitorPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(serverMonitorPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -396,185 +195,13 @@ public class MainWindow extends javax.swing.JFrame {
     JSONArray users = new JSONArray();
     SQL sql;
     private void onKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_onKeyPressed
-        if(evt.getKeyCode() == KeyEvent.VK_E && evt.isControlDown()) {
+        if(evt.getKeyCode() == KeyEvent.VK_D && evt.isControlDown()) {
             ApplicationInit app = new ApplicationInit(true);
         } else if(evt.getKeyCode() == KeyEvent.VK_S && evt.isControlDown()) {
             PrintRequestWindow window = new PrintRequestWindow(true);
         }
     }//GEN-LAST:event_onKeyPressed
-
-    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTabbedPane1MouseClicked
-
-    void updateTables(){
-        sql = new SQL();
-        try {
-            sql.Connect();
-            JSONObject object = sql.getApplicants();
-            users = object.getJSONArray("users");
-            updateTable(pendingUsersTable);
-            updateTable(refusedUsersTable);
-            updateTable(AcceptedUsersTable);
-
-        } catch (SQLException | JSONException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-        // TODO add your handling code here:
-        //System.out.println("tab changed");
-        updateTables();
-       
-    }//GEN-LAST:event_jTabbedPane1StateChanged
-
-    private void pendingRefuseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pendingRefuseButtonActionPerformed
-        // TODO add your handling code here:
-        buttonClicked(-1,pendingUsersTable);
-    }//GEN-LAST:event_pendingRefuseButtonActionPerformed
-
-    private void pendingApproveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pendingApproveButtonActionPerformed
-        // TODO add your handling code here:
-
-        buttonClicked(1,pendingUsersTable);
-    }//GEN-LAST:event_pendingApproveButtonActionPerformed
-
-    private void acceptedApproveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptedApproveButtonActionPerformed
-        // TODO add your handling code here:
-          //buttonClicked(1,AcceptedUsersTable);
-    }//GEN-LAST:event_acceptedApproveButtonActionPerformed
-
-    private void acceptedtRefuseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptedtRefuseButtonActionPerformed
-        // TODO add your handling code here:
-          buttonClicked(-1,AcceptedUsersTable);
-    }//GEN-LAST:event_acceptedtRefuseButtonActionPerformed
-
-    private void refusedApproveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refusedApproveButtonActionPerformed
-        // TODO add your handling code here:
-          buttonClicked(1,refusedUsersTable);
-    }//GEN-LAST:event_refusedApproveButtonActionPerformed
-
-    private void refusedRefuseButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refusedRefuseButtonActionPerformed
-        // TODO add your handling code here:
-          //buttonClicked(-1,refusedUsersTable);
-    }//GEN-LAST:event_refusedRefuseButtonActionPerformed
-
-    private void pendingUsersTableFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_pendingUsersTableFocusGained
-        // TODO add your handling code here:
-        //updateTable(pendingUsersTable);
-    }//GEN-LAST:event_pendingUsersTableFocusGained
-
-    private void jCheckBox1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jCheckBox1StateChanged
-        // TODO add your handling code here:
-      
-        
-    }//GEN-LAST:event_jCheckBox1StateChanged
-
-    private void jCheckBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jCheckBox1ItemStateChanged
-        // TODO add your handling code here:
-        boolean checked = jCheckBox1.isSelected();
-        if(checked){
-            jTabbedPane1.remove(1);
-        }
-
-        else{
-            //pendingCustomersPane = new JPanel();
-            //updateTables();
-            pendingCustomersPane.setName("Pending Customers");
-            jTabbedPane1.add(pendingCustomersPane, 1);
-        }
-    }//GEN-LAST:event_jCheckBox1ItemStateChanged
-    DefaultTableModel model;
-    void updateTable(JTable table){
-        model = (DefaultTableModel) table.getModel();
-        model.getDataVector().removeAllElements();
-        model.fireTableDataChanged(); // notifies the JTable that the model has changed
-        
-        
-        
-        for(int i =0; i < users.length(); i ++ ){
-            try {
-                JSONObject user = users.getJSONObject(i);
-                String Status = "";
-                if (user.getInt("Status")== 0){
-                    Status = "Pending";
-                    if(table == pendingUsersTable){
-                        model.addRow(new Object[]{user.get("Name"), user.get("Telephone"),user.get("Address1"),user.get("Address2"),Status});
-
-                    }
-                }
-                else if(user.getInt("Status") == 1){
-                    Status = "Approved";
-                    if(table == AcceptedUsersTable){
-                        model.addRow(new Object[]{user.get("Name"), user.get("Telephone"),user.get("Address1"),user.get("Address2"),Status});
-
-                    }
-                }
-                else if(user.getInt("Status") == -1){
-                    Status = "Refused";
-                    if(table == refusedUsersTable){
-                       model.addRow(new Object[]{user.get("Name"), user.get("Telephone"),user.get("Address1"),user.get("Address2"),Status});
-                    }
-                }
-                //model.addRow(new Object[]{user.get("Name"), user.get("Telephone"),user.get("Address1"),user.get("Address2"),Status});
-            } catch (JSONException ex) {
-                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            }
-    }
-    void buttonClicked(int i,JTable table){
-         if(!table.getSelectionModel().isSelectionEmpty()){
-            try {
-                //model.setValueAt("Approved",usersJTable.getSelectedRow(),usersJTable.getColumnCount()-1);
-
-                //loop rows and put items back on jsonobject
-                JSONObject user = new JSONObject();
-                String name = table.getValueAt(table.getSelectedRow(), 0).toString();
-                //user = users.getJSONObject(table.getSelectedRow());
-                for(int j =0;j<users.length();j++){
-                    if (users.getJSONObject(j).getString("Name").equals(name))
-                    {
-                        user = users.getJSONObject(j);
-                        break;
-                    }
-                }
-                user.put("Status", i);
-                users.put(table.getSelectedRow(),user);
-                sql.updateApplicants(user);
-                
-                
-                //register to new table
-                if(i==1){
-                    sql.registerNewCustomer(user);
-                    JSONObject object = new JSONObject();
-                    object.put("Msg","new_user");
-                    object.put("username",user.get("Name"));
-                    object.put("password",user.get("Password"));
-                    object.put("phone",user.get("Telephone"));
-                    object.put("email",user.get("Email"));
-                    object.put("address1",user.get("Address1"));
-                    object.put("building",user.get("Address2"));
-                    object.put("apt",user.get("Address2"));
-                    object.put("floor",user.get("Address2"));
-                    object.put("lat",user.get("Latitude"));
-                    object.put("long",user.get("Longitude"));
-                    String message = object.toString();
-                    
-                    
-                    connection.HandleMessage(message);
-                }
-                if(i==-1){
-                    //remove customer.
-                }
-
-            } catch (JSONException ex) {
-                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            updateTable(table);
-            /*updateTable(AcceptedUsersTable);
-            updateTable(refusedUsersTable);
-            updateTable(pendingUsersTable);*/        }
-    }
+  
     public void SetClientStatus(String status) {
         clientStatus.setText(status);
     }
@@ -586,28 +213,11 @@ public class MainWindow extends javax.swing.JFrame {
        logMessages.append(Message + "\n");
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable AcceptedUsersTable;
-    private javax.swing.JButton acceptedApproveButton;
-    private javax.swing.JPanel acceptedCustomersPane;
-    private javax.swing.JButton acceptedtRefuseButton;
     private javax.swing.JLabel clientStatus;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JScrollPane jScrollPane6;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea logMessages;
-    private javax.swing.JButton pendingApproveButton;
-    private javax.swing.JPanel pendingCustomersPane;
-    private javax.swing.JButton pendingRefuseButton;
-    private javax.swing.JTable pendingUsersTable;
-    private javax.swing.JButton refusedApproveButton;
-    private javax.swing.JPanel refusedCustomersPane;
-    private javax.swing.JButton refusedRefuseButton;
-    private javax.swing.JTable refusedUsersTable;
     private javax.swing.JPanel serverMonitorPane;
     private javax.swing.JLabel serverStatus;
     // End of variables declaration//GEN-END:variables
