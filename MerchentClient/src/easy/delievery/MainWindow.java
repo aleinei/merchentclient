@@ -40,6 +40,10 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
         initComponents();
         setVisible(true);
+<<<<<<< HEAD
+=======
+        setLocationRelativeTo(null);
+>>>>>>> cbeb9651590ac259b2d0e6f5d6c34b90cd8fa3af
         addWindowListener(new WindowListener() {
             @Override
             public void windowOpened(WindowEvent we) {
@@ -161,7 +165,11 @@ public class MainWindow extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(serverStatus)))
                         .addGap(68, 68, 68))
+<<<<<<< HEAD
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 493, Short.MAX_VALUE))
+=======
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 678, Short.MAX_VALUE))
+>>>>>>> cbeb9651590ac259b2d0e6f5d6c34b90cd8fa3af
                 .addGap(41, 41, 41))
         );
         serverMonitorPaneLayout.setVerticalGroup(
@@ -176,7 +184,7 @@ public class MainWindow extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(serverStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 249, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -184,6 +192,7 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+<<<<<<< HEAD
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 92, Short.MAX_VALUE)
                 .addComponent(serverMonitorPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -195,6 +204,13 @@ public class MainWindow extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(serverMonitorPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
+=======
+            .addComponent(serverMonitorPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(serverMonitorPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+>>>>>>> cbeb9651590ac259b2d0e6f5d6c34b90cd8fa3af
         );
 
         pack();
@@ -208,8 +224,12 @@ public class MainWindow extends javax.swing.JFrame {
             PrintRequestWindow window = new PrintRequestWindow(true);
         }
     }//GEN-LAST:event_onKeyPressed
+<<<<<<< HEAD
 
  
+=======
+  
+>>>>>>> cbeb9651590ac259b2d0e6f5d6c34b90cd8fa3af
     public void SetClientStatus(String status) {
         clientStatus.setText(status);
     }
