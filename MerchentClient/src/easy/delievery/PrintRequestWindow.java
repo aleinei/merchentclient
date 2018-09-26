@@ -46,6 +46,7 @@ public class PrintRequestWindow extends javax.swing.JFrame {
         receiptBox = new javax.swing.JCheckBox();
         workOrdernReceiptBox = new javax.swing.JCheckBox();
         saveBtn = new javax.swing.JButton();
+        noneBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -80,6 +81,13 @@ public class PrintRequestWindow extends javax.swing.JFrame {
             }
         });
 
+        noneBox.setText("None");
+        noneBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                noneBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,10 +98,11 @@ public class PrintRequestWindow extends javax.swing.JFrame {
                     .addComponent(workOrdernReceiptBox)
                     .addComponent(receiptBox)
                     .addComponent(workOrderBox)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(noneBox))
                 .addContainerGap(93, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(163, 163, 163)
+                .addGap(164, 164, 164)
                 .addComponent(saveBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -108,9 +117,11 @@ public class PrintRequestWindow extends javax.swing.JFrame {
                 .addComponent(receiptBox)
                 .addGap(18, 18, 18)
                 .addComponent(workOrdernReceiptBox)
-                .addGap(35, 35, 35)
+                .addGap(18, 18, 18)
+                .addComponent(noneBox)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
                 .addComponent(saveBtn)
-                .addContainerGap(40, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -118,7 +129,7 @@ public class PrintRequestWindow extends javax.swing.JFrame {
 
     private void workOrderBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workOrderBoxActionPerformed
         // TODO add your handling code here:
-        if(receiptBox.isSelected() || workOrdernReceiptBox.isSelected() && workOrderBox.isSelected()) {
+        if(receiptBox.isSelected() || noneBox.isSelected() || workOrdernReceiptBox.isSelected() && workOrderBox.isSelected()) {
             workOrderBox.setSelected(false);
             return;
         }
@@ -127,7 +138,7 @@ public class PrintRequestWindow extends javax.swing.JFrame {
 
     private void receiptBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_receiptBoxActionPerformed
         // TODO add your handling code here:
-        if(workOrderBox.isSelected() || workOrdernReceiptBox.isSelected() && receiptBox.isSelected()) {
+        if(workOrderBox.isSelected() || noneBox.isSelected() || workOrdernReceiptBox.isSelected() && receiptBox.isSelected()) {
             receiptBox.setSelected(false);
             return;
         }
@@ -136,7 +147,7 @@ public class PrintRequestWindow extends javax.swing.JFrame {
 
     private void workOrdernReceiptBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_workOrdernReceiptBoxActionPerformed
         // TODO add your handling code here:
-        if(receiptBox.isSelected() || workOrderBox.isSelected() && workOrdernReceiptBox.isSelected()) {
+        if(receiptBox.isSelected() || noneBox.isSelected() || workOrderBox.isSelected() && workOrdernReceiptBox.isSelected()) {
             workOrdernReceiptBox.setSelected(false);
             return;
         }
@@ -178,6 +189,14 @@ public class PrintRequestWindow extends javax.swing.JFrame {
             
     }//GEN-LAST:event_saveBtnActionPerformed
 
+    private void noneBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_noneBoxActionPerformed
+        // TODO add your handling code here:
+        if(receiptBox.isSelected() || workOrderBox.isSelected() || workOrdernReceiptBox.isSelected()) {
+            return;
+        }
+        method = EasyDelievery.NONE;
+    }//GEN-LAST:event_noneBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -211,6 +230,7 @@ public class PrintRequestWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox noneBox;
     private javax.swing.JCheckBox receiptBox;
     private javax.swing.JButton saveBtn;
     private javax.swing.JLabel titleLabel;

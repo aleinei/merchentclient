@@ -25,6 +25,7 @@ public class EasyDelievery {
     public static String PRINT_WORK_ORDER = "work_order";
     public static String PRINT_RECEIPT = "receipt";
     public static String PRINT_BOTH = "both";
+    public static String NONE = "None";
     public static void main(String[] args) {
         File directory = new File(ESI_FILES_DIRECTORY);
         if(!directory.exists()) {

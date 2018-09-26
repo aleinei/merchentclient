@@ -64,7 +64,7 @@ public class PrintOrder {
                 JSONObject item = items.getJSONObject(i);
                 String itemSource = "";
                 try {
-                    itemSource = item.getString("source");
+                    itemSource = item.getString("Source");
                 } catch (JSONException ex)
                 {
                     itemSource = "";
@@ -87,7 +87,7 @@ public class PrintOrder {
                     JSONObject item = items.getJSONObject(x);
                     String itemSource = "";
                     try {
-                        itemSource = item.getString("source");
+                        itemSource = item.getString("Source");
                     } catch (JSONException ex)
                     {
                         itemSource = "";
@@ -114,6 +114,7 @@ public class PrintOrder {
                 JSONObject userObject = new JSONObject(user);
                 String username = userObject.getString("name");
                 String telephone = userObject.getString("phone");
+                String address = userObject.getString("address");
                 String service = isTakeAway? "تيك اواي" : "دليفري";
                 for(int i = 0; i < items.length(); i++) {
                    JSONObject item = items.getJSONObject(i);
@@ -122,7 +123,7 @@ public class PrintOrder {
                 StyleBuilder colStyle = stl.style().setHorizontalTextAlignment(HorizontalTextAlignment.RIGHT).setBorder(stl.pen(1f, LineStyle.SOLID)).setPadding(3);
                 StyleBuilder titleStyle = stl.style().bold().setFontSize(20).setHorizontalTextAlignment(HorizontalTextAlignment.CENTER).underline();
                 StyleBuilder leftHeaderStyle = stl.style().bold().setHorizontalTextAlignment(HorizontalTextAlignment.RIGHT).setFontSize(12).setPadding(0).setLineSpacing(LineSpacing.SINGLE);
-                StyleBuilder rightHeaderStyle = stl.style().bold().setHorizontalTextAlignment(HorizontalTextAlignment.RIGHT).setFontSize(8).setLineSpacing(LineSpacing.SINGLE);
+                StyleBuilder rightHeaderStyle = stl.style().bold().setHorizontalTextAlignment(HorizontalTextAlignment.RIGHT).setFontSize(12).setLineSpacing(LineSpacing.SINGLE);
                 StyleBuilder centerHeaderStyle = stl.style().bold().setHorizontalTextAlignment(HorizontalTextAlignment.CENTER).setPadding(0).setLineSpacing(LineSpacing.SINGLE);
                 StyleBuilder numberStyle = stl.style().bold().setHorizontalTextAlignment(HorizontalTextAlignment.RIGHT).setFontSize(12);
                 PrintService[] services = PrinterJob.lookupPrintServices();
@@ -143,7 +144,10 @@ public class PrintOrder {
                         .addPageHeader(cmp.text(invoice).setStyle(rightHeaderStyle)).
                         addPageHeader(cmp.horizontalList().add(cmp.text("الرقم: " + CO).setStyle(numberStyle)).add(cmp.text("القسم : " + source).setStyle(rightHeaderStyle).setWidth(100))).
                         addPageHeader(cmp.horizontalList().add(cmp.text("الوقت : " + date).setStyle(leftHeaderStyle)).add(cmp.text("خدمه: " + service).setStyle(rightHeaderStyle).setWidth(30)))
-                        .addPageHeader(cmp.horizontalList().add(cmp.text("تسليم : " + date).setStyle(leftHeaderStyle)).add(cmp.text("العميل : " + username).setStyle(rightHeaderStyle).setWidth(30))).addPageHeader(cmp.text("تليفون  : " + telephone).setStyle(rightHeaderStyle));
+                        .addPageHeader(cmp.horizontalList().add(cmp.text("تسليم : " + date).setStyle(leftHeaderStyle)))
+                        .addPageHeader(cmp.text("العميل : " + username).setStyle(rightHeaderStyle))
+                        .addPageHeader(cmp.text("تليفون  : " + telephone).setStyle(rightHeaderStyle))
+                        .addPageHeader(cmp.text(" عنوان: " + address).setStyle(rightHeaderStyle));
                  JasperPrint print = b.toJasperPrint();
                 PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();
                 printRequestAttributeSet.add(MediaSizeName.NA_LETTER);
@@ -174,6 +178,7 @@ public class PrintOrder {
                 JSONObject userObject = new JSONObject(user);
                 String username = userObject.getString("name");
                 String telephone = userObject.getString("phone");
+                String address = userObject.getString("address");
                 String service = isTakeAway? "تيك اواي" : "دليفري";
                 for(int i = 0; i < items.length(); i++) {
                    JSONObject item = items.getJSONObject(i);
@@ -205,7 +210,10 @@ public class PrintOrder {
                         .addPageHeader(cmp.text(invoice).setStyle(rightHeaderStyle)).
                         addPageHeader(cmp.horizontalList().add(cmp.text("الرقم: " + CO).setStyle(numberStyle))).
                         addPageHeader(cmp.horizontalList().add(cmp.text("الوقت : " + date).setStyle(leftHeaderStyle)).add(cmp.text("خدمه: " + service).setStyle(rightHeaderStyle).setWidth(30)))
-                        .addPageHeader(cmp.horizontalList().add(cmp.text("تسليم : " + date).setStyle(leftHeaderStyle)).add(cmp.text("العميل : " + username).setStyle(rightHeaderStyle).setWidth(30))).addPageHeader(cmp.text("تليفون  : " + telephone).setStyle(rightHeaderStyle))
+                        .addPageHeader(cmp.horizontalList().add(cmp.text("تسليم : " + date).setStyle(leftHeaderStyle)))
+                        .addPageHeader(cmp.text("العميل : " + username).setStyle(rightHeaderStyle))
+                        .addPageHeader(cmp.text("تليفون  : " + telephone).setStyle(rightHeaderStyle))
+                        .addPageHeader(cmp.text(" عنوان: " + address).setStyle(rightHeaderStyle))
                         .addPageFooter(cmp.text("القيمه: " + totalValue).setStyle(centerHeaderStyle));
                  JasperPrint print = b.toJasperPrint();
                 PrintRequestAttributeSet printRequestAttributeSet = new HashPrintRequestAttributeSet();

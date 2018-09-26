@@ -8,6 +8,7 @@ package easy.delievery;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -46,7 +47,8 @@ import net.sf.jasperreports.export.SimplePrintServiceExporterConfiguration;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 /**
  *
  * @author Server
@@ -105,14 +107,15 @@ public class ServerConnection {
             JSONObject msg = new JSONObject(message);
             if(msg.getString("Msg").toLowerCase().equals("print_order")) {
                 JSONArray items = msg.getJSONArray("items");
-                int Id = msg.getInt("cstId");
                 boolean isTakeAway = msg.getBoolean("takeaway");
-                String user = msg.getString("user");
-              //  printOrder(items, "بار");
+                JSONObject user = msg.getJSONObject("user");
                 SQL sql = new SQL();
-                int invoiceId = sql.InsertInvoice(Id, items, isTakeAway, user);
+                int invoiceId = sql.InsertInvoice(callerWindow, items, isTakeAway, user);
                 if(invoiceId != -1) {
-                    double value = 0;
+                String uriString = new File("msgrec.mp3").toURI().toString();
+                 MediaPlayer player = new MediaPlayer( new Media(uriString));
+                 player.play();
+                double value = 0;
                     for(int i = 0; i < items.length(); i++) {
                         JSONObject item = items.getJSONObject(i);
                         value += item.getDouble("itemPrice") * item.getDouble("qty");
@@ -138,12 +141,12 @@ public class ServerConnection {
                         double lat = msg.getDouble("lat");
                         double longt = msg.getDouble("long");
                         SQL SQL = new SQL();
-                        JSONObject user = SQL.createNewCustomer(callerWindow, username, password, phone, email, address1,address2, floor, apt, lat, longt);
-                        if(user != null) {
+                        SQL.createNewCustomer(callerWindow, username, password, phone, email, address1,lat, longt);
+                        /*if(user != null) 
                             callerWindow.LogMessage("New user registered (" + username + ")");
                             msg.put("id", user.getInt("id"));
                             SendMessage(msg.toString());
-                        }
+                        }*/
             }
             callerWindow.SetClientStatus("Waiting for message");
         } catch (JSONException ex) {

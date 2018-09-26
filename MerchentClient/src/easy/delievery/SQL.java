@@ -40,13 +40,13 @@ public class SQL {
         }
     }
     
-        public JSONObject createNewCustomer(MainWindow window, String username, String password, String phone, String email, String address1, String address2, String floor, String apt, double lat, double longt) {
+        public int createNewCustomer(MainWindow window, String username, String password, String phone, String email, String address1,double lat, double longt) {
         JSONObject user = new JSONObject();
         try {
             Connection con = this.Connect();
             if(con != null) {
                 int Id = getNextId("Customers");
-                String completeAddress = "ع" + address2 + " د" + floor + " ش" + apt + " " + address1;
+                String completeAddress = address1;
                 String values = "'" + Id + "',";
                 values += "'1',";
                 values += "'" + username + "',";
@@ -65,7 +65,7 @@ public class SQL {
                     } else {
                         user.put("Msg", "user_failed");
                     }
-                    return user;
+                    return Id;
                 } catch (JSONException ex) {
                     window.LogMessage(ex.getMessage());
                 } 
@@ -74,7 +74,7 @@ public class SQL {
             window.LogMessage(ex.getMessage());
         }
             
-        return null;
+        return -1;
     }
     public boolean InsertInvoice(int cstId, JSONArray items) {
         try {
@@ -129,8 +129,16 @@ public class SQL {
         }
        return false;
     }
-    public int InsertInvoice(int cstId, JSONArray items, boolean isTakeAway, String user) {
+    public int InsertInvoice(MainWindow window, JSONArray items, boolean isTakeAway, JSONObject user) {
         try {
+                    int cstId = 0;
+                    String phone = user.getString("phone");
+                    String name = user.getString("name");
+                    String address = user.getString("address");
+                    cstId = checkUser(name, phone);
+                    if(cstId == -1) {
+                        cstId = createNewCustomer(window, name, phone, phone, user.getString("email"), user.getString("address"), user.getDouble("lati"), user.getDouble("long"));
+                    }
                     Connection con = this.Connect();
                     int invoiceId = getNextId("Invoice_Order");
                     int nextCO = -1;
@@ -253,13 +261,17 @@ public class SQL {
                                     }
                                 }
                             }
+                            JSONObject userOb = new JSONObject();
+                            userOb.put("name",name);
+                            userOb.put("phone", phone);
+                            userOb.put("address", address);
                             if(EasyDelievery.CURRENT_METHOD.equals(EasyDelievery.PRINT_WORK_ORDER)) {
-                                PrintOrder.PrintWorkOrder(items, user, invoiceId, nextCO, this, isTakeAway);
+                                PrintOrder.PrintWorkOrder(items, userOb.toString(), invoiceId, nextCO, this, isTakeAway);
                             } else if(EasyDelievery.CURRENT_METHOD.equals(EasyDelievery.PRINT_RECEIPT)) {
-                                PrintOrder.PrintReceipt(items, user, invoiceId, nextCO, getReceiptPrinter(), isTakeAway);
+                                PrintOrder.PrintReceipt(items, userOb.toString(), invoiceId, nextCO, getReceiptPrinter(), isTakeAway);
                             } else if(EasyDelievery.CURRENT_METHOD.equals(EasyDelievery.PRINT_BOTH)) {
-                                PrintOrder.PrintWorkOrder(items, user, invoiceId, nextCO, this, isTakeAway);
-                                PrintOrder.PrintReceipt(items, user, invoiceId, nextCO, getReceiptPrinter(), isTakeAway);
+                                PrintOrder.PrintWorkOrder(items, userOb.toString(), invoiceId, nextCO, this, isTakeAway);
+                                PrintOrder.PrintReceipt(items, userOb.toString(), invoiceId, nextCO, getReceiptPrinter(), isTakeAway);
                             }
                             return invoiceId;
                         } else {
@@ -270,6 +282,8 @@ public class SQL {
                         Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
                     }
         } catch (SQLException ex) {
+            Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JSONException ex) {
             Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
         }
        return -1;
@@ -455,5 +469,22 @@ public class SQL {
             Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
         }
         return "";
+    }
+    
+    public int checkUser(String name, String phone) {
+        try {
+            Connection con = this.Connect();
+            String query = "SELECT * FROM Customers WHERE Telephone = '" + phone + "' AND Name = '" + name + "'";
+            try(Statement stmt = con.createStatement()) {
+                ResultSet rs = stmt.executeQuery(query);
+                if(rs.next()) {
+                    return rs.getInt("ID");
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return -1;
     }
 }
