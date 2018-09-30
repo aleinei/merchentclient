@@ -55,7 +55,7 @@ import org.json.JSONObject;
 public class PrintOrder {
     
     
-    public static void PrintWorkOrder(JSONArray items, String user, int invoiceID, int CO, SQL sql, boolean isTakeAway)
+    public static void PrintWorkOrder(JSONArray items, String user, int invoiceID, int CO, SQL sql, boolean isTakeAway, String dTime)
     {
         ArrayList<String> Sources = new ArrayList();
         for(int i = 0; i < items.length(); i ++)
@@ -100,11 +100,11 @@ public class PrintOrder {
                     Logger.getLogger(PrintOrder.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
-            PrintOrderToWork(items2, user, invoiceID,  Sources.get(i), CO, sql.GetPrinterNameFromSource(Sources.get(i)), isTakeAway);
+            PrintOrderToWork(items2, user, invoiceID,  Sources.get(i), CO, sql.GetPrinterNameFromSource(Sources.get(i)), isTakeAway, dTime);
         }
     }
     
-    public static void PrintOrderToWork(JSONArray items, String user, int invoiceID,  String source, int CO, String printerName, boolean isTakeAway)
+    public static void PrintOrderToWork(JSONArray items, String user, int invoiceID,  String source, int CO, String printerName, boolean isTakeAway, String dTime)
     {
             try {
                 DRDataSource dataSource = new DRDataSource("name", "qty");
@@ -144,7 +144,7 @@ public class PrintOrder {
                         .addPageHeader(cmp.text(invoice).setStyle(rightHeaderStyle)).
                         addPageHeader(cmp.horizontalList().add(cmp.text("الرقم: " + CO).setStyle(numberStyle)).add(cmp.text("القسم : " + source).setStyle(rightHeaderStyle).setWidth(100))).
                         addPageHeader(cmp.horizontalList().add(cmp.text("الوقت : " + date).setStyle(leftHeaderStyle)).add(cmp.text("خدمه: " + service).setStyle(rightHeaderStyle).setWidth(30)))
-                        .addPageHeader(cmp.horizontalList().add(cmp.text("تسليم : " + date).setStyle(leftHeaderStyle)))
+                        .addPageHeader(cmp.horizontalList().add(cmp.text("تسليم : " + dTime).setStyle(leftHeaderStyle)))
                         .addPageHeader(cmp.text("العميل : " + username).setStyle(rightHeaderStyle))
                         .addPageHeader(cmp.text("تليفون  : " + telephone).setStyle(rightHeaderStyle))
                         .addPageHeader(cmp.text(" عنوان: " + address).setStyle(rightHeaderStyle));
@@ -167,7 +167,7 @@ public class PrintOrder {
                 Logger.getLogger(PrintOrder.class.getName()).log(Level.SEVERE, null, ex);
             }
     }
-     public static void PrintReceipt(JSONArray items, String user, int invoiceID, int CO, String printerName, boolean isTakeAway)
+     public static void PrintReceipt(JSONArray items, String user, int invoiceID, int CO, String printerName, boolean isTakeAway, String dTime)
     {
             try {
                 DRDataSource dataSource = new DRDataSource("name", "qty", "value", "total");
@@ -210,7 +210,7 @@ public class PrintOrder {
                         .addPageHeader(cmp.text(invoice).setStyle(rightHeaderStyle)).
                         addPageHeader(cmp.horizontalList().add(cmp.text("الرقم: " + CO).setStyle(numberStyle))).
                         addPageHeader(cmp.horizontalList().add(cmp.text("الوقت : " + date).setStyle(leftHeaderStyle)).add(cmp.text("خدمه: " + service).setStyle(rightHeaderStyle).setWidth(30)))
-                        .addPageHeader(cmp.horizontalList().add(cmp.text("تسليم : " + date).setStyle(leftHeaderStyle)))
+                        .addPageHeader(cmp.horizontalList().add(cmp.text("تسليم : " + dTime).setStyle(leftHeaderStyle)))
                         .addPageHeader(cmp.text("العميل : " + username).setStyle(rightHeaderStyle))
                         .addPageHeader(cmp.text("تليفون  : " + telephone).setStyle(rightHeaderStyle))
                         .addPageHeader(cmp.text(" عنوان: " + address).setStyle(rightHeaderStyle))
