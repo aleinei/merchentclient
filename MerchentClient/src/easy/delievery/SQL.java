@@ -76,7 +76,7 @@ public class SQL {
             
         return -1;
     }
-    public boolean InsertInvoice(int cstId, JSONArray items) {
+    public boolean InsertInvoice(int cstId, JSONArray items, String dTime) {
         try {
                     Connection con = this.Connect();
                     int invoiceId = getNextId("Invoice_Order");
@@ -129,7 +129,7 @@ public class SQL {
         }
        return false;
     }
-    public int InsertInvoice(MainWindow window, JSONArray items, boolean isTakeAway, JSONObject user) {
+    public int InsertInvoice(MainWindow window, JSONArray items, boolean isTakeAway, JSONObject user, String dTime) {
         try {
                     int cstId = 0;
                     String phone = user.getString("phone");
@@ -266,13 +266,12 @@ public class SQL {
                             userOb.put("phone", phone);
                             userOb.put("address", address);
                             if(EasyDelievery.CURRENT_METHOD.equals(EasyDelievery.PRINT_WORK_ORDER)) {
-                                PrintOrder.PrintWorkOrder(items, userOb.toString(), invoiceId, nextCO, this, isTakeAway);
+                                PrintOrder.PrintWorkOrder(items, userOb.toString(), invoiceId, nextCO, this, isTakeAway, dTime);
                             } else if(EasyDelievery.CURRENT_METHOD.equals(EasyDelievery.PRINT_RECEIPT)) {
-                                PrintOrder.PrintReceipt(items, userOb.toString(), invoiceId, nextCO, getReceiptPrinter(), isTakeAway);
+                                PrintOrder.PrintReceipt(items, userOb.toString(), invoiceId, nextCO, getReceiptPrinter(), isTakeAway, dTime);
                             } else if(EasyDelievery.CURRENT_METHOD.equals(EasyDelievery.PRINT_BOTH)) {
-                                PrintOrder.PrintWorkOrder(items, userOb.toString(), invoiceId, nextCO, this, isTakeAway);
-                                PrintOrder.PrintReceipt(items, userOb.toString(), invoiceId, nextCO, getReceiptPrinter(), isTakeAway);
-                            }
+                                PrintOrder.PrintWorkOrder(items, userOb.toString(), invoiceId, nextCO, this, isTakeAway, dTime);
+                                PrintOrder.PrintReceipt(items, userOb.toString(), invoiceId, nextCO, getReceiptPrinter(), isTakeAway, dTime);                            }
                             return invoiceId;
                         } else {
                             System.out.println("rows was not done");

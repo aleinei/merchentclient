@@ -110,7 +110,7 @@ public class ServerConnection {
                 boolean isTakeAway = msg.getBoolean("takeaway");
                 JSONObject user = msg.getJSONObject("user");
                 SQL sql = new SQL();
-                int invoiceId = sql.InsertInvoice(callerWindow, items, isTakeAway, user);
+                int invoiceId = sql.InsertInvoice(callerWindow, items, isTakeAway, user, msg.getString("d_time"));
                 if(invoiceId != -1) {
                 String uriString = new File("msgrec.mp3").toURI().toString();
                  MediaPlayer player = new MediaPlayer( new Media(uriString));
