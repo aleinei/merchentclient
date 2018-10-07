@@ -261,6 +261,7 @@ public class ServerConnection {
             connectMessage.put("Msg", "reg_db");
             connectMessage.put("db", EasyDelievery.CURRENT_DB);
             connectMessage.put("type", "storeClient");
+            connectMessage.put("items_type", EasyDelievery.CURRENT_TYPES);
             out.println(connectMessage.toString());
         } catch (JSONException ex) {
             Logger.getLogger(ServerConnection.class.getName()).log(Level.SEVERE, null, ex);

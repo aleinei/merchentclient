@@ -26,6 +26,7 @@ public class EasyDelievery {
     public static String PRINT_RECEIPT = "receipt";
     public static String PRINT_BOTH = "both";
     public static String NONE = "None";
+    public static String CURRENT_TYPES = "";
     public static void main(String[] args) {
         File directory = new File(ESI_FILES_DIRECTORY);
         if(!directory.exists()) {
@@ -38,8 +39,10 @@ public class EasyDelievery {
                 BufferedReader bReader = new BufferedReader(reader);
                 CURRENT_DB = bReader.readLine();
                 CURRENT_METHOD = bReader.readLine();
+                CURRENT_TYPES = bReader.readLine();
                 System.out.println(CURRENT_DB);
                 System.out.println(CURRENT_METHOD);
+                System.out.println(CURRENT_TYPES);
             } catch (Exception ex) {
                 Logger.getLogger(EasyDelievery.class.getName()).log(Level.SEVERE, null, ex);
                 ApplicationInit app = new ApplicationInit(false);

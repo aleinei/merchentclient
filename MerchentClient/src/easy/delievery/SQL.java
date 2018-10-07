@@ -138,6 +138,8 @@ public class SQL {
                     cstId = checkUser(name, phone);
                     if(cstId == -1) {
                         cstId = createNewCustomer(window, name, phone, phone, user.getString("email"), user.getString("address"), user.getDouble("lati"), user.getDouble("long"));
+                    } else {
+                        updateCustomer(cstId, phone, name, address);
                     }
                     Connection con = this.Connect();
                     int invoiceId = getNextId("Invoice_Order");
@@ -287,6 +289,17 @@ public class SQL {
         }
        return -1;
     }
+    public void updateCustomer(int id, String phone, String name, String address) {
+        try {
+            Connection con = this.Connect();
+            String query = "UPDATE Customers SET Name = '" + name + "', Telephone = '" + phone +"', address1 = '" + address + "'  WHERE ID = " + id;
+            try(Statement stmt = con.createStatement()) {
+                stmt.execute(query);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(SQL.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
         private int getNextId(String tableName) {
         try {
             Connection con = this.Connect();
@@ -305,6 +318,7 @@ public class SQL {
         }
         return 0;
     }
+        
      private int getNextCO(int IT)
     {
         try {
