@@ -124,6 +124,10 @@ public class ApplicationInit extends javax.swing.JFrame {
                 br.write("\n");
                 if(!EasyDelievery.CURRENT_METHOD.isEmpty()) {
                     br.write(EasyDelievery.CURRENT_METHOD);
+                    br.write("\n");
+                }
+                if(!EasyDelievery.CURRENT_TYPES.isEmpty()) {
+                    br.write(EasyDelievery.CURRENT_TYPES);
                 }
                 br.close();
                 EasyDelievery.CURRENT_DB = dbName;

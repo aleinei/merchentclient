@@ -30,6 +30,11 @@ public class PrintRequestWindow extends javax.swing.JFrame {
         setVisible(true);
         setLocationRelativeTo(null);
         this.isEditing = isEditing;
+        if(!EasyDelievery.CURRENT_TYPES.isEmpty()) {
+            if(EasyDelievery.CURRENT_TYPES.equals("all")) {
+                showStockItems.setSelected(true);
+            }
+        }
     }
 
     /**
@@ -41,12 +46,17 @@ public class PrintRequestWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel1 = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         workOrderBox = new javax.swing.JCheckBox();
         receiptBox = new javax.swing.JCheckBox();
         workOrdernReceiptBox = new javax.swing.JCheckBox();
         saveBtn = new javax.swing.JButton();
         noneBox = new javax.swing.JCheckBox();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        showStockItems = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -88,28 +98,32 @@ public class PrintRequestWindow extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(60, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(workOrdernReceiptBox)
-                    .addComponent(receiptBox)
-                    .addComponent(workOrderBox)
-                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(noneBox))
-                .addContainerGap(93, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(164, 164, 164)
-                .addComponent(saveBtn)
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(89, Short.MAX_VALUE)
+                .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(46, 46, 46)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(noneBox)
+                            .addComponent(workOrdernReceiptBox)
+                            .addComponent(receiptBox)
+                            .addComponent(workOrderBox)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(162, 162, 162)
+                        .addComponent(saveBtn)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(50, 50, 50)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addComponent(titleLabel)
                 .addGap(18, 18, 18)
                 .addComponent(workOrderBox)
@@ -119,9 +133,56 @@ public class PrintRequestWindow extends javax.swing.JFrame {
                 .addComponent(workOrdernReceiptBox)
                 .addGap(18, 18, 18)
                 .addComponent(noneBox)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
                 .addComponent(saveBtn)
                 .addContainerGap())
+        );
+
+        jTabbedPane1.addTab("Print method", jPanel1);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel1.setText("Settings for items");
+
+        showStockItems.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        showStockItems.setText("Show Items with no stock");
+        showStockItems.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showStockItemsActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(showStockItems)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(217, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addComponent(showStockItems)
+                .addContainerGap(257, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Items Settings", jPanel2);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 373, Short.MAX_VALUE)
         );
 
         pack();
@@ -197,6 +258,45 @@ public class PrintRequestWindow extends javax.swing.JFrame {
         method = EasyDelievery.NONE;
     }//GEN-LAST:event_noneBoxActionPerformed
 
+    private void showStockItemsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showStockItemsActionPerformed
+        String method = "";
+        if(showStockItems.isSelected()) {
+            method = "all";
+        } else {
+            method = "stock";
+        }
+            File dbFile = new File(EasyDelievery.DB_FILE_NAME);
+            if(!dbFile.exists()) {
+                try {
+                    dbFile.createNewFile();
+                } catch (IOException ex) {
+                    JOptionPane.showMessageDialog(rootPane,  "Unable to create the configuration file, please try again", "File create failed", JOptionPane.WARNING_MESSAGE);
+                    Logger.getLogger(ApplicationInit.class.getName()).log(Level.SEVERE, null, ex);
+                    return;
+                }
+            }
+            try {
+                FileWriter fr = new FileWriter(EasyDelievery.DB_FILE_NAME, !isEditing);
+                BufferedWriter br = new BufferedWriter(fr);
+                if(isEditing) {
+                    br.write(EasyDelievery.CURRENT_DB);
+                    br.write("\n");
+                }
+                br.write(EasyDelievery.CURRENT_METHOD);
+                br.write("\n");
+                br.write(method);
+                EasyDelievery.CURRENT_TYPES = method;
+                br.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ApplicationInit.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(rootPane,  "Unable to create the configuration file, please try again", "File create failed", JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if(isEditing) {
+                EasyDelievery.window.Reload();
+            }
+    }//GEN-LAST:event_showStockItemsActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -230,9 +330,14 @@ public class PrintRequestWindow extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JCheckBox noneBox;
     private javax.swing.JCheckBox receiptBox;
     private javax.swing.JButton saveBtn;
+    private javax.swing.JCheckBox showStockItems;
     private javax.swing.JLabel titleLabel;
     private javax.swing.JCheckBox workOrderBox;
     private javax.swing.JCheckBox workOrdernReceiptBox;
