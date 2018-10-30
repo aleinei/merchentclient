@@ -26,13 +26,15 @@ public class SQL {
     
     
     public String DBName;
+    private String password;
     
     public SQL()
     {
         this.DBName = EasyDelievery.CURRENT_DB;
+        this.password = EasyDelievery.CURRENT_PW;
     }
     public Connection Connect() throws SQLException {
-        Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName="+ DBName +";user=sa;password=AbdulRahman02^");
+        Connection con = DriverManager.getConnection("jdbc:sqlserver://localhost:1433;databaseName="+ DBName +";user=sa;password="+password);
         if(con != null) {
             return con;
         } else {

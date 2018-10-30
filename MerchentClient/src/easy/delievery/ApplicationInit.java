@@ -5,10 +5,15 @@
  */
 package easy.delievery;
 
+import com.lowagie.text.pdf.codec.Base64;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -48,6 +53,9 @@ public class ApplicationInit extends javax.swing.JFrame {
         dbNameField = new javax.swing.JTextField();
         appTitle = new javax.swing.JLabel();
         dbConfirm = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        password = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Application Startup");
@@ -56,7 +64,7 @@ public class ApplicationInit extends javax.swing.JFrame {
         dbNameField.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         appTitle.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        appTitle.setText("Please enter the database name to continue");
+        appTitle.setText("Please enter the database name and password to continue");
 
         dbConfirm.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         dbConfirm.setText("Start");
@@ -66,37 +74,61 @@ public class ApplicationInit extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Database Name");
+
+        jLabel2.setText("Password");
+
+        password.setPreferredSize(new java.awt.Dimension(119, 25));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(appTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 505, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(appTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
+                        .addGap(93, 93, 93)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(198, 198, 198)
-                                .addComponent(dbConfirm))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(139, 139, 139)
-                                .addComponent(dbNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(dbNameField)
+                            .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(228, 228, 228)
+                .addComponent(dbConfirm)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addComponent(appTitle)
-                .addGap(35, 35, 35)
-                .addComponent(dbNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
+                .addContainerGap()
+                .addComponent(appTitle, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(dbNameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(dbConfirm)
-                .addContainerGap(107, Short.MAX_VALUE))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
+
+        appTitle.getAccessibleContext().setAccessibleName("Please enter the database name and \npassword to continue");
+
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -104,20 +136,55 @@ public class ApplicationInit extends javax.swing.JFrame {
     private void dbConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_dbConfirmActionPerformed
         // TODO add your handling code here:
         String dbName = dbNameField.getText();
+        char[] dbPW = password.getPassword();
+        String dbPassword = String.copyValueOf(dbPW);
+        byte[] encryptedPassword =null;
+        String password ="";
+        System.out.println(dbPassword);
+
         if(dbName.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane,  "You need to enter the database name to continue", "Empty Database name", JOptionPane.ERROR_MESSAGE);
-        } else {
+        }else if(dbPassword.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Please enter the password to continue", "Empty Password", JOptionPane.ERROR_MESSAGE);
+        }
+        else {
             File dbFile = new File(EasyDelievery.DB_FILE_NAME);
-            if(!dbFile.exists()) {
+            File pwFile = new File(EasyDelievery.PW_FILE_NAME);
+            if(!dbFile.exists() || !pwFile.exists()) {
                 try {
                     dbFile.createNewFile();
+                    pwFile.createNewFile();
                 } catch (IOException ex) {
                     JOptionPane.showMessageDialog(rootPane,  "Unable to create the configuration file, please try again", "File create failed", JOptionPane.WARNING_MESSAGE);
                     Logger.getLogger(ApplicationInit.class.getName()).log(Level.SEVERE, null, ex);
                     return;
                 }
             }
-            try {
+            try{
+                    // Create key and cipher
+                    Cipher cipher = Cipher.getInstance("DES");
+                    // encrypt the text
+                    cipher.init(Cipher.ENCRYPT_MODE, EasyDelievery.AES_KEY);
+                    encryptedPassword = cipher.doFinal(dbPassword.getBytes());
+                    password = Base64.encodeBytes(encryptedPassword);
+                    System.err.println(new String(encryptedPassword));
+                    // decrypt the text
+                    cipher.init(Cipher.DECRYPT_MODE, EasyDelievery.AES_KEY);
+                    String decrypted = new String(cipher.doFinal(encryptedPassword));
+                    System.err.println(decrypted);
+
+                }catch(Exception e) {
+                    e.printStackTrace();
+                }
+            try {                
+                //pw file writer
+                FileWriter pwfr = new FileWriter(EasyDelievery.PW_FILE_NAME, true);
+                BufferedWriter pwbr = new BufferedWriter(pwfr);
+                pwbr.write(password);
+                pwbr.write("\n");
+                pwbr.close();
+                EasyDelievery.CURRENT_PW = new String(encryptedPassword);
+                //db file writer
                 FileWriter fr = new FileWriter(EasyDelievery.DB_FILE_NAME, false);
                 BufferedWriter br = new BufferedWriter(fr);
                 br.write(dbName);
@@ -145,9 +212,15 @@ public class ApplicationInit extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_dbConfirmActionPerformed
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel appTitle;
     private javax.swing.JButton dbConfirm;
     private javax.swing.JTextField dbNameField;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPasswordField password;
     // End of variables declaration//GEN-END:variables
 }
+
+/**/

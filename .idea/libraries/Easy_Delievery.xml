@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="Easy_Delievery">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/Easy_Delievery.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

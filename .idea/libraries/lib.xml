@@ -1,0 +1,67 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/jackson-databind-2.1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/barcode4j-2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/sqljdbc42.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/jcommon-1.0.23.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/core-3.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/jasperreports-6.5.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-i18n-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/spring-beans-3.2.18.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/commons-codec-1.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/velocity-1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/dynamicreports-examples-5.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/commons-lang3-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/xalan-2.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/dynamicreports-googlecharts-5.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/dynamicreports-adhoc-5.1.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/barbecue-1.5-beta1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/commons-collections4-4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/dynamicreports-core-5.1.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-util-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-ext-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/avalon-framework-impl-4.2.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/dynamicreports-core-5.1.0-javadoc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/json-20080701.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-anim-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/itext-2.1.7.js6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/log4j-1.2.14.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-gvt-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/ecj-4.4.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/dynamicreports-googlecharts-5.1.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-svg-dom-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-css-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/jackson-core-2.1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/commons-collections-3.2.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/java-json.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/commons-beanutils-1.9.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/spring-core-3.2.18.RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-awt-util-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/commons-digester-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/dynamicreports-adhoc-5.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-xml-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/dynamicreports-core-5.1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/dynamicreports-examples-5.1.0-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/xml-apis-1.3.04.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-dom-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/hsqldb-1.8.0.10.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/xml-apis-ext-1.3.04.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-script-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/poi-3.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/jackson-annotations-2.1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-bridge-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-constants-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/commons-lang-2.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/beansbinding-1.2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/bcprov-jdk15on-1.52.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/serializer-2.7.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/xmlgraphics-commons-2.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/batik-parser-1.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/MerchentClient/dist/lib/jfreechart-1.0.19.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
