@@ -5,8 +5,11 @@
         <group>
             <file>file:/D:/ESI/Github/merchentclient/MerchentClient/src/easy/delievery/MainWindow.java</file>
             <file>file:/D:/ESI/Github/merchentclient/MerchentClient/src/easy/delievery/ServerConnection.java</file>
+            <file>file:/D:/ESI/Github/merchentclient/MerchentClient/src/easy/delievery/EasyDelievery.java</file>
+            <file>file:/D:/ESI/Github/merchentclient/MerchentClient/src/easy/delievery/PrintRequestWindow.java</file>
             <file>file:/D:/ESI/Github/merchentclient/MerchentClient/src/easy/delievery/PrintOrder.java</file>
             <file>file:/D:/ESI/Github/merchentclient/MerchentClient/src/easy/delievery/SQL.java</file>
+            <file>file:/D:/ESI/Github/merchentclient/MerchentClient/src/easy/delievery/ApplicationInit.java</file>
         </group>
     </open-files>
 </project-private>
